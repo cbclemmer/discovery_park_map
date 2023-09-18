@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Main_Controller : MonoBehaviour
 {
+    public List<Node_controller> Nodes;
     // Start is called before the first frame update
     void Start()
     {

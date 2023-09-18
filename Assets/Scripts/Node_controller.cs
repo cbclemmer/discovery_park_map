@@ -18,7 +18,7 @@ public class Node_controller : MonoBehaviour
     {
         
     }
-
+    
     // Update is called once per frame
     void Update()
     {
