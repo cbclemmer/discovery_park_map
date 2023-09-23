@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class Main_Controller : MonoBehaviour
 {
+    // delete later
+    public Node_controller Start_Node;
+    public Node_controller End_Node;
+
     public List<Node_controller> Nodes;
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("hello, world");
+        Draw_Path(new List<Node_controller> { Start_Node, End_Node });
     }
 
     // Update is called once per frame
@@ -27,5 +32,13 @@ public class Main_Controller : MonoBehaviour
         }
         return path;
     }
+    public void Draw_Path(List<Node_controller> path)
+    {
+        for(int i=0; i < path.Count -1; i++)
+        {
+            path[i].Draw_Line(path[i + 1]);
+        }
+    }
+    
     
 }

@@ -24,4 +24,11 @@ public class Node_controller : MonoBehaviour
     {
         
     }
+    public void Draw_Line(Node_controller destination)
+    {
+        var lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, destination.transform.position);
+    }
 }
