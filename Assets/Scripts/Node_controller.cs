@@ -31,4 +31,9 @@ public class Node_controller : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, destination.transform.position);
     }
+
+    public void Remove_Line(){
+        var lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 0;
+    }
 }
