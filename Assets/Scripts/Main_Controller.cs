@@ -16,6 +16,16 @@ public class Main_Controller : MonoBehaviour
     public List<Node_controller> Nodes;
     public List<Node_controller> Cur_Path; //list to store the current path in memory
     // Start is called before the first frame update
+
+    public enum App_State{
+        Splash,
+        Search,
+        SearchWStart,
+        Confirm,
+        Route, 
+        Cancel
+    }
+    public App_State State = App_State.Splash;
     void Start()
     {
         Debug.Log("hello, world");
