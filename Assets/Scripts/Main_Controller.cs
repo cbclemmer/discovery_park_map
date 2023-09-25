@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
+using System.Text.RegularExpressions;
+using UnityEngine.Rendering;
 
 public class Main_Controller : MonoBehaviour
 {
@@ -17,6 +20,7 @@ public class Main_Controller : MonoBehaviour
     {
         Debug.Log("hello, world");
         Draw_Path(new List<Node_controller> { Start_Node, End_Node });
+        Debug.Log(Search_Nodes("S").Count);
     }
 
     // Update is called once per frame
@@ -55,5 +59,15 @@ public class Main_Controller : MonoBehaviour
         Cur_Path = null;
     }
     
+    public List<Node_controller> Search_Nodes(string search){
+        Regex regex = new Regex($"^{Regex.Escape(search.ToLower())}");
+        var results = new List<Node_controller>();
+        for (int i = 0; i < Nodes.Count; i++){
+            if(regex.Match(Nodes[i].Name.ToLower()).Success){
+                results.Add(Nodes[i]);
+            }
+        }
+        return results;
+    }
     
 }
