@@ -40,13 +40,7 @@ public class Main_Controller : MonoBehaviour
     }
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
     {
-        var path = new List<Node_controller>();  
-        for(int i=0; i < start.Connections.Count; i++){
-            if(start.Connections[i].name == end.name){
-                path.Add(start.Connections[i]);
-            }
-        }
-        return path;
+       return PathController.FindShortestPath(start,end, Nodes);
     }
     public void Draw_Path(List<Node_controller> path)
     {
