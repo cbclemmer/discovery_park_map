@@ -19,6 +19,7 @@ public class Main_Controller : MonoBehaviour
 
     public enum App_State{
         Splash,
+        Map,
         Search,
         SearchWStart,
         Confirm,
