@@ -6,12 +6,14 @@ using UnityEngine;
 using System;
 using System.Text.RegularExpressions;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class Main_Controller : MonoBehaviour
 {
     // delete later
     public Node_controller Start_Node;
     public Node_controller End_Node;
+    public GameObject selection;
 
     public List<Node_controller> Nodes;
     public List<Node_controller> Cur_Path; //list to store the current path in memory
