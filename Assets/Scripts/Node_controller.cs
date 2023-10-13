@@ -10,6 +10,7 @@ public class Node_controller : MonoBehaviour
         General,
         Pathing
     }
+    public int Id;
     public string Name;
     public List<Node_controller> Connections;
     public NodeType Type;
