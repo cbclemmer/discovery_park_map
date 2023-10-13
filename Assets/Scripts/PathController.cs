@@ -6,7 +6,8 @@ using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Dijkstra : MonoBehaviour
+// Based on Dijkstra's Algorithm
+public class Path_Controller : MonoBehaviour
 {
     public class Node
     {
@@ -33,7 +34,29 @@ public class Dijkstra : MonoBehaviour
 
     public static List<Node_controller> FindShortestPath(Node_controller startNode_controller, Node_controller endNode_controller,List<Node_controller> nodes)
     {
-        var path_nodes = nodes
+        var path_nodes = _build_graph(nodes);
+        
+        var unvisitedNodes = new List<Node>(path_nodes);
+        var currentNode = path_nodes.First(n => n.node.Id == startNode_controller.Id);
+        currentNode.distance = 0; // Zero out starting node
+
+        while (currentNode != null)
+        {
+            _visit_node(currentNode);
+            unvisitedNodes.Remove(currentNode);
+            if (currentNode.node.Id == endNode_controller.Id) 
+            {
+                break;
+            }
+            currentNode = unvisitedNodes.OrderBy(n => n.distance).FirstOrDefault();
+        }
+
+        return _get_path(path_nodes.First(n => n.node.Id == endNode_controller.Id));
+    }
+
+    private static List<Node> _build_graph(List<Node_controller> node_controllers)
+    {
+        var path_nodes = node_controllers
             .Select(n => new Node(n))
             .ToList();
 
@@ -41,33 +64,18 @@ public class Dijkstra : MonoBehaviour
         {
             foreach (var connection in node.node.Connections)
             {
-                var path_node = path_nodes.First(pn => pn.node.transform.position == connection.transform.position);
+                var path_node = path_nodes.First(pn => pn.node.Id == connection.Id);
                 node.edges.Add(new Edge{
                     target_node = path_node,
                     distance = (node.node.transform.position - connection.transform.position).magnitude
                 });
             }
         }
-        
-        var start_node = new Node(startNode_controller);
-        start_node.distance = 0;
-        var unvisitedNodes = new List<Node>(path_nodes);
-        var currentNode = start_node;
 
-        while (unvisitedNodes.Count > 0)
-        {
-            visit_node(currentNode);
-            unvisitedNodes.Remove(currentNode);
-            if (currentNode.node == endNode_controller) 
-            {
-                break;
-            }
-        }
-
-        return BuildPath(startNode_controller, endNode_controller);
+        return path_nodes;
     }
 
-    private static void visit_node(Node current_node)
+    private static void _visit_node(Node current_node)
     {
         foreach (var edge in current_node.edges)
         {
@@ -76,50 +84,23 @@ public class Dijkstra : MonoBehaviour
             if (tmp_distance < edge.target_node.distance)
             {
                 edge.target_node.distance = tmp_distance;
+                edge.target_node.previousNode = current_node;
             }
         }
         current_node.visited = true;
     }
 
-    private Node_controller FindNode_controllerByObject(GameObject nodeObject)
+    private static List<Node_controller> _get_path(Node end_node)
     {
-        foreach (var Node_controller in Node_controllers)
+        var current_node = end_node;
+        var path = new List<Node_controller> { current_node.node };
+        while (current_node != null && current_node.distance != 0)
         {
-            if (Node_controller.nodeObject == nodeObject)
-                return Node_controller;
-        }
-        return null;
-    }
-
-    private static Node GetClosestNode(List<Node> nodeList)
-    {
-        Node closestNode = null;
-        float shortestDistance = float.MaxValue;
-
-        foreach (var node in nodeList)
-        {
-            if (node.distance < shortestDistance && !node.visited)
-            {
-                shortestDistance = node.distance;
-                closestNode = node;
-            }
+            current_node = current_node.previousNode;
+            if (current_node == null) break;
+            path.Add(current_node.node);
         }
 
-        return closestNode;
-    }
-
-    private List<Node_controller> BuildPath(Node_controller startNode_controller, Node_controller endNode_controller)
-    {
-        List<Node_controller> path = new List<Node_controller>();
-        Node_controller currentNode_controller = endNode_controller;
-
-        while (currentNode_controller != startNode_controller)
-        {
-            path.Add(currentNode_controller);
-            currentNode_controller = currentNode_controller.previousNode;
-        }
-
-        path.Add(startNode_controller);
         path.Reverse();
 
         return path;

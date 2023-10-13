@@ -6,12 +6,14 @@ using UnityEngine;
 using System;
 using System.Text.RegularExpressions;
 using UnityEngine.Rendering;
+using System.Linq;
 
 public class Main_Controller : MonoBehaviour
 {
     // delete later
     public Node_controller Start_Node;
-    public Node_controller End_Node;
+    public Node_controller B192;
+    public Node_controller E178D;
 
     public List<Node_controller> Nodes;
     public List<Node_controller> Cur_Path; //list to store the current path in memory
@@ -29,9 +31,27 @@ public class Main_Controller : MonoBehaviour
     public App_State State = App_State.Splash;
     void Start()
     {
-        Debug.Log("hello, world");
-        Draw_Path(new List<Node_controller> { Start_Node, End_Node });
-        Debug.Log(Search_Nodes("S").Count);
+        Nodes = GameObject
+            .FindGameObjectsWithTag("Node")
+            .Select(o => o.GetComponent<Node_controller>())
+            .ToList();
+
+        var i = 0;
+        foreach (var node in Nodes)
+        {
+            node.Id = i;
+            i++;
+        }
+    }
+
+    public void Draw_B192()
+    {
+        Draw_Path(Find_Path(Start_Node, B192));
+    }
+
+    public void Draw_E178D()
+    {
+        Draw_Path(Find_Path(Start_Node, E178D));
     }
 
     // Update is called once per frame
@@ -39,12 +59,14 @@ public class Main_Controller : MonoBehaviour
     {
         
     }
+
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
     {
-       return PathController.FindShortestPath(start,end, Nodes);
+       return Path_Controller.FindShortestPath(start,end, Nodes);
     }
     public void Draw_Path(List<Node_controller> path)
     {
+        Remove_Path();
         for(int i=0; i < path.Count -1; i++)
         {
             path[i].Draw_Line(path[i + 1]);
