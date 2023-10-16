@@ -7,10 +7,12 @@ using System;
 using System.Text.RegularExpressions;
 using UnityEngine.Rendering;
 using System.Linq;
+using System.IO;
 
 public class Main_Controller : MonoBehaviour
 {
     // delete later
+    public UI_Controller UIController { get => GetComponent<UI_Controller>(); }
     public Node_controller Start_Node;
     public Node_controller B192;
     public Node_controller E178D;
@@ -46,12 +48,12 @@ public class Main_Controller : MonoBehaviour
 
     public void Draw_B192()
     {
-        Draw_Path(Find_Path(Start_Node, B192));
+        UIController.Draw_Path(Find_Path(Start_Node, B192));
     }
 
     public void Draw_E178D()
     {
-        Draw_Path(Find_Path(Start_Node, E178D));
+        UIController.Draw_Path(Find_Path(Start_Node, E178D));
     }
 
     // Update is called once per frame
@@ -64,27 +66,7 @@ public class Main_Controller : MonoBehaviour
     {
        return Path_Controller.FindShortestPath(start,end, Nodes);
     }
-    public void Draw_Path(List<Node_controller> path)
-    {
-        Remove_Path();
-        for(int i=0; i < path.Count -1; i++)
-        {
-            path[i].Draw_Line(path[i + 1]);
-            
-        }
-        Cur_Path = path;
-    }
-
-
-    public void Remove_Path(){
-        if(Cur_Path == null){
-            return;
-        }
-        for(int i=0; i <Cur_Path.Count -1; i++){
-            Cur_Path[i].Remove_Line();
-        }
-        Cur_Path = null;
-    }
+    
     
     public List<Node_controller> Search_Nodes(string search){
         Regex regex = new Regex($"^{Regex.Escape(search.ToLower())}");
@@ -97,4 +79,17 @@ public class Main_Controller : MonoBehaviour
         return results;
     }
     
+
+    public int GetWalkTime() { //converts path distance into walktime, 1 unity unit = 1 meter
+        if (Cur_Path == null){ 
+            return int.MaxValue;
+        }
+        float walkTime = 0;
+        float sum = 0;
+        for(int i = 0; i < Cur_Path.Count -1; i++){
+            sum += (Cur_Path[i].transform.position - Cur_Path[i+1].transform.position).magnitude;
+        }
+        walkTime = (sum/1.338f); //average walking speed is 1.388 meters per second
+        return (int)(walkTime); //give time in minutes 
+    }
 }
