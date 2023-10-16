@@ -49,7 +49,7 @@ public class UI_Controller : MonoBehaviour
 
     public void SetWalkTime(int walkTime){
          Debug.Log(walkTime);
-         TimeText.text = $"Walk Time: {walkTime} min";  
+         TimeText.text = $"Walk Time: {walkTime/60} min {walkTime%60} sec";  
     }
 
     public void Remove_Path(){

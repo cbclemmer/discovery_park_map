@@ -84,12 +84,11 @@ public class Main_Controller : MonoBehaviour
         if (Cur_Path == null){ 
             return int.MaxValue;
         }
-        float walkTime = 0;
         float sum = 0;
         for(int i = 0; i < Cur_Path.Count -1; i++){
-            sum += (Cur_Path[i].transform.position - Cur_Path[i+1].transform.position).magnitude;
+            sum += (Cur_Path[i].transform.position - Cur_Path[i+1].transform.position).magnitude *7.62f;
         }
-        walkTime = (sum/1.338f); //average walking speed is 1.388 meters per second
+        float walkTime = sum/1.338f; //average walking speed is 1.388 meters per second
         return (int)(walkTime); //give time in minutes 
     }
 }
