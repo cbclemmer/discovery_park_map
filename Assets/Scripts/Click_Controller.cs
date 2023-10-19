@@ -18,9 +18,10 @@ public class Click_Controller : MonoBehaviour, IPointerClickHandler
         /*Debug.Log("Test");
         Debug.Log(main_controller.State);
         */
-        main_controller.State = Main_Controller.App_State.Search;
+        main_controller.state = Main_Controller.App_State.Search;
         //Debug.Log(main_controller.State);
         main_controller.selection.SetActive(true);
+        main_controller.cancel_button.SetActive(true);
     }
     public void Start(){
         search_bar.onValueChanged.AddListener(delegate{InputUpdate();});

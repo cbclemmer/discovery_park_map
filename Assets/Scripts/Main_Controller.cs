@@ -14,6 +14,8 @@ public class Main_Controller : MonoBehaviour
     public Node_controller Start_Node;
     public Node_controller End_Node;
     public GameObject selection;
+    public GameObject cancel_button;
+    public GameObject Map;
 
     public List<Node_controller> Nodes;
     public List<Node_controller> Cur_Path; //list to store the current path in memory
@@ -29,6 +31,36 @@ public class Main_Controller : MonoBehaviour
         Cancel
     }
     public App_State State = App_State.Splash;
+    public App_State state{
+        get{
+            return State;
+        }
+        set{
+            State = value;
+            if(value == App_State.Splash){
+                Debug.Log("App state Changed to Splash");
+            }
+            if(value == App_State.Map){
+                Debug.Log("App state Changed to Map");
+            }
+            if(value == App_State.Search){
+                Debug.Log("App state Changed to Search");
+                Map.SetActive(false);
+            }
+            if(value == App_State.SearchWStart){
+                Debug.Log("App state Changed to SearchWStart");
+            }
+            if(value == App_State.Confirm){
+                Debug.Log("App state Changed to Confirm");
+            }
+            if(value == App_State.Route){
+                Debug.Log("App state Changed to Route");
+            }
+            if(value == App_State.Cancel){
+                Debug.Log("App state Changed to Cancel");
+            }
+        }
+    }
     void Start()
     {
         Debug.Log("hello, world");
@@ -41,6 +73,7 @@ public class Main_Controller : MonoBehaviour
     {
         
     }
+    
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
     {
         var path = new List<Node_controller>();  
