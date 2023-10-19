@@ -285,6 +285,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
+--- !u!1 &131127100 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6805768334108995579, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &229943055 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 528604229950657555, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
@@ -370,6 +375,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
+--- !u!1 &420531327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3234494211455801764, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &428670059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -483,6 +493,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5875308116587628220, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 130
+      objectReference: {fileID: 0}
     - target: {fileID: 6344409002399093862, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -563,6 +577,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6527130230610689934, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: UIController
+      value: 
+      objectReference: {fileID: 519420034}
     - target: {fileID: 7154841292832629583, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -732,6 +750,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ca376edbf4341889757dac41dec648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SplashState: {fileID: 1409697963}
+  MapState: {fileID: 804700403}
+  ConfirmState: {fileID: 131127100}
+  SearchState: {fileID: 587947944}
+  RouteState: {fileID: 420531327}
   TimeText: {fileID: 881475044}
   ZoomLevels:
   - 6
@@ -741,6 +764,11 @@ MonoBehaviour:
   - 10
   - 11
   ZoomLevel: 2
+--- !u!1 &587947944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2128069500609616987, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &741110753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -830,6 +858,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bd1c0b2222f4189bb6cc1debe22e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &804700403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5605089456697811096, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &813523189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 528604229950657555, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
@@ -1309,6 +1342,11 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 528604229950657555, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
   m_PrefabInstance: {fileID: 1391434569}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1409697963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4545965895878863223, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1591234509
 PrefabInstance:

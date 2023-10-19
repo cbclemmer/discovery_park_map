@@ -6,6 +6,12 @@ using TMPro;
 
 public class UI_Controller : MonoBehaviour
 {
+    public GameObject SplashState;
+    public GameObject MapState;
+    public GameObject ConfirmState;
+    public GameObject SearchState;
+    public GameObject RouteState;
+    
     [SerializeField] public TextMeshProUGUI TimeText;
     public Main_Controller MainController { get => GetComponent<Main_Controller>(); }
 
@@ -61,4 +67,13 @@ public class UI_Controller : MonoBehaviour
         }
         MainController.Cur_Path = null;
     }
+    public void Change_State(Main_Controller.App_State state){
+        MainController.State = state;       
+        SplashState.SetActive (state==Main_Controller.App_State.Splash);
+        MapState.SetActive (state==Main_Controller.App_State.Map);
+        ConfirmState.SetActive (state==Main_Controller.App_State.Confirm);
+        SearchState.SetActive (state==Main_Controller.App_State.Search);
+        RouteState.SetActive (state==Main_Controller.App_State.Route);
+    }
+    
 }
