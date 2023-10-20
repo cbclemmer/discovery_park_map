@@ -13,6 +13,7 @@ public class Search_Controller : MonoBehaviour, IPointerClickHandler
     public Main_Controller main_controller;
     public TMP_InputField search_bar;
     public List<Node_controller> class_results;
+    public List<GameObject> buttons;
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Test");
