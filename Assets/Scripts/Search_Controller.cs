@@ -8,22 +8,18 @@ using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using TMPro;
 
-public class Click_Controller : MonoBehaviour, IPointerClickHandler
+public class Search_Controller : MonoBehaviour, IPointerClickHandler
 {
     public Main_Controller main_controller;
     public TMP_InputField search_bar;
     public List<Node_controller> class_results;
-    public GameObject selection;
-    public GameObject cancel_button;
     public void OnPointerClick(PointerEventData eventData)
     {
-        /*Debug.Log("Test");
+        Debug.Log("Test");
         Debug.Log(main_controller.State);
-        */
+        
         main_controller.state = Main_Controller.App_State.Search;
-        //Debug.Log(main_controller.State);
-        selection.SetActive(true);
-        cancel_button.SetActive(true);
+        Debug.Log(main_controller.State);
     }
     public void CancelSearch(){
         main_controller.state = Main_Controller.App_State.Map;

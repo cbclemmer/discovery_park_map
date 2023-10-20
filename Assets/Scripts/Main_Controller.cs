@@ -20,7 +20,7 @@ public class Main_Controller : MonoBehaviour
     public List<Node_controller> Nodes;
     public List<Node_controller> Cur_Path; //list to store the current path in memory
     // Start is called before the first frame update
-
+[Serializable]
     public enum App_State{
         Splash,
         Map,
