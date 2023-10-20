@@ -7,15 +7,15 @@ using System;
 using System.Text.RegularExpressions;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
+using System.Linq;
+using System.IO;
 
 public class Main_Controller : MonoBehaviour
 {
     // delete later
+    public UI_Controller UIController { get => GetComponent<UI_Controller>(); }
     public Node_controller Start_Node;
     public Node_controller End_Node;
-    public GameObject selection;
-    public GameObject cancel_button;
-    public GameObject Map;
 
     public List<Node_controller> Nodes;
     public List<Node_controller> Cur_Path; //list to store the current path in memory
@@ -45,7 +45,6 @@ public class Main_Controller : MonoBehaviour
             }
             if(value == App_State.Search){
                 Debug.Log("App state Changed to Search");
-                Map.SetActive(false);
             }
             if(value == App_State.SearchWStart){
                 Debug.Log("App state Changed to SearchWStart");
@@ -63,9 +62,17 @@ public class Main_Controller : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log("hello, world");
-        Draw_Path(new List<Node_controller> { Start_Node, End_Node });
-        Debug.Log(Search_Nodes("S").Count);
+        Nodes = GameObject
+            .FindGameObjectsWithTag("Node")
+            .Select(o => o.GetComponent<Node_controller>())
+            .ToList();
+
+        var i = 0;
+        foreach (var node in Nodes)
+        {
+            node.Id = i;
+            i++;
+        }
     }
 
     // Update is called once per frame
@@ -76,34 +83,9 @@ public class Main_Controller : MonoBehaviour
     
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
     {
-        var path = new List<Node_controller>();  
-        for(int i=0; i < start.Connections.Count; i++){
-            if(start.Connections[i].name == end.name){
-                path.Add(start.Connections[i]);
-            }
-        }
-        return path;
+       return Path_Controller.FindShortestPath(start,end, Nodes);
     }
-    public void Draw_Path(List<Node_controller> path)
-    {
-        for(int i=0; i < path.Count -1; i++)
-        {
-            path[i].Draw_Line(path[i + 1]);
-            
-        }
-        Cur_Path = path;
-    }
-
-
-    public void Remove_Path(){
-        if(Cur_Path == null){
-            return;
-        }
-        for(int i=0; i <Cur_Path.Count -1; i++){
-            Cur_Path[i].Remove_Line();
-        }
-        Cur_Path = null;
-    }
+    
     
     public List<Node_controller> Search_Nodes(string search){
         Regex regex = new Regex($"^{Regex.Escape(search.ToLower())}");
@@ -116,4 +98,16 @@ public class Main_Controller : MonoBehaviour
         return results;
     }
     
+
+    public int GetWalkTime() { //converts path distance into walktime, 1 unity unit = 1 meter
+        if (Cur_Path == null){ 
+            return int.MaxValue;
+        }
+        float sum = 0;
+        for(int i = 0; i < Cur_Path.Count -1; i++){
+            sum += (Cur_Path[i].transform.position - Cur_Path[i+1].transform.position).magnitude *7.62f;
+        }
+        float walkTime = sum/1.338f; //average walking speed is 1.388 meters per second
+        return (int)(walkTime); //give time in minutes 
+    }
 }

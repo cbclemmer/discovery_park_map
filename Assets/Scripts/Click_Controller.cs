@@ -13,6 +13,8 @@ public class Click_Controller : MonoBehaviour, IPointerClickHandler
     public Main_Controller main_controller;
     public TMP_InputField search_bar;
     public List<Node_controller> class_results;
+    public GameObject selection;
+    public GameObject cancel_button;
     public void OnPointerClick(PointerEventData eventData)
     {
         /*Debug.Log("Test");
@@ -20,8 +22,8 @@ public class Click_Controller : MonoBehaviour, IPointerClickHandler
         */
         main_controller.state = Main_Controller.App_State.Search;
         //Debug.Log(main_controller.State);
-        main_controller.selection.SetActive(true);
-        main_controller.cancel_button.SetActive(true);
+        selection.SetActive(true);
+        cancel_button.SetActive(true);
     }
     public void CancelSearch(){
         main_controller.state = Main_Controller.App_State.Map;
