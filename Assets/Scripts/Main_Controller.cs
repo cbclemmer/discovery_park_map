@@ -18,6 +18,7 @@ public class Main_Controller : MonoBehaviour
     public Node_controller E178D;
 
     public List<Node_controller> Nodes;
+    public bool TestConnections;
     public List<Node_controller> Cur_Path; //list to store the current path in memory
     // Start is called before the first frame update
 
@@ -38,11 +39,42 @@ public class Main_Controller : MonoBehaviour
             .Select(o => o.GetComponent<Node_controller>())
             .ToList();
 
-        var i = 0;
+        
+        // Set up ids
+        var currentId = 0;
         foreach (var node in Nodes)
         {
-            node.Id = i;
-            i++;
+            node.Id = currentId;
+            currentId++;
+        }
+
+        // Ensure nodes are connected both ways
+        foreach (var node in Nodes)
+        {
+            foreach (var connection in node.Connections)
+            {
+                if (!connection.Connections.Any(c => c.Id == node.Id)) 
+                {
+                    connection.Connections.Add(node);
+                }
+            }
+        }
+
+        // View all of the connected nodes
+        if (TestConnections) {
+            foreach(var node in Nodes)
+            {
+                var lineRenderer = node.GetComponent<LineRenderer>();
+                lineRenderer.positionCount = node.Connections.Count * 3;
+                for (var i = 0; i < node.Connections.Count; i++) 
+                {
+                    var connection = node.Connections[i];
+                    var j = i * 3;
+                    lineRenderer.SetPosition(j, node.transform.position);
+                    lineRenderer.SetPosition(j + 1, connection.transform.position);
+                    lineRenderer.SetPosition(j + 2, node.transform.position);
+                }
+            }
         }
     }
 

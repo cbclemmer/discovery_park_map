@@ -736,6 +736,7 @@ MonoBehaviour:
   B192: {fileID: 229943059}
   E178D: {fileID: 1591234510}
   Nodes: []
+  TestConnections: 0
   Cur_Path: []
   State: 0
 --- !u!114 &519420034
