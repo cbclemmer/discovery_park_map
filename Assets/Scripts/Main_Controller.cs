@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using UnityEngine.Rendering;
 using System.Linq;
 using System.IO;
+using Unity.VisualScripting.Dependencies.NCalc;
 
 public class Main_Controller : MonoBehaviour
 {
@@ -91,7 +92,15 @@ public class Main_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+         if(Input.GetMouseButtonDown(0)) {
+            RaycastHit hit;
+            //Debug.Log("click");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit)) {
+                if(hit.transform.name == "B192" )Debug.Log("object clicked");
+            }
+        }
+    
     }
 
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
@@ -123,4 +132,6 @@ public class Main_Controller : MonoBehaviour
         float walkTime = sum/1.338f; //average walking speed is 1.388 meters per second
         return (int)(walkTime); //give time in minutes 
     }
+
 }
+

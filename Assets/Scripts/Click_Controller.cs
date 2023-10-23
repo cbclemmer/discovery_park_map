@@ -12,4 +12,6 @@ public class Click_Controller : MonoBehaviour, IPointerClickHandler
     {
         Debug.Log("Test");
     }
+
 }
+
