@@ -517,6 +517,10 @@ PrefabInstance:
       propertyPath: main_controller
       value: 
       objectReference: {fileID: 519420033}
+    - target: {fileID: 4545965895878863223, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5602799863748188821, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -778,7 +782,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Start_Node: {fileID: 741110755}
   End_Node: {fileID: 0}
-  Nodes: []
+  Nodes:
+  - {fileID: 229943059}
+  - {fileID: 1591234510}
+  - {fileID: 37197118}
+  - {fileID: 1810229800}
+  - {fileID: 428670060}
   Cur_Path: []
   State: 0
 --- !u!114 &519420034
