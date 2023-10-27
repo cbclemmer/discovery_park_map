@@ -32,20 +32,12 @@ public class Search_Controller : MonoBehaviour, IPointerClickHandler
         //Debug.Log(search_bar.text);
         class_results = main_controller.Search_Nodes(search_bar.text);
         int class_size = class_results.Count;
-        if(class_size > 5){
-            class_size = 5;
-        }
 
-        for(int i = 0;i < class_size; i++){
-            if(class_results[i].name.StartsWith("Node") || class_results[i].name.StartsWith("Start")){
-                button_results[i].GetComponentInChildren<TMP_Text>().text = "";
-            }
-            else{
+        for(int i = 0;i < 5; i++){
+            if(i < class_size){
                 button_results[i].GetComponentInChildren<TMP_Text>().text = class_results[i].name;
             }
-        }
-        if(class_size < 5){
-            for(int i  = class_size; i < 5; i++){
+            else{
                 button_results[i].GetComponentInChildren<TMP_Text>().text = "";
             }
         }
