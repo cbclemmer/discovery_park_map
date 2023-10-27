@@ -24,6 +24,13 @@ public class UI_Controller : MonoBehaviour
         9,10,11
     };
     public int ZoomLevel = 2;
+
+    void Start()
+    {
+        ZoomLevel = ZoomLevels.Count - 1;
+        UpdateZoom();
+    }
+
     public void ZoomIn()
     {
         if (ZoomLevel == 0)
