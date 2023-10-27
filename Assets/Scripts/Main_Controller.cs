@@ -22,6 +22,8 @@ public class Main_Controller : MonoBehaviour
     public List<Node_controller> Cur_Path; //list to store the current path in memory
     // Start is called before the first frame update
 
+    public int CurrentFloor;
+
     public enum App_State{
         Splash,
         Map,
