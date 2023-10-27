@@ -782,12 +782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Start_Node: {fileID: 741110755}
   End_Node: {fileID: 0}
-  Nodes:
-  - {fileID: 229943059}
-  - {fileID: 1591234510}
-  - {fileID: 37197118}
-  - {fileID: 1810229800}
-  - {fileID: 428670060}
+  Nodes: []
   Cur_Path: []
   State: 0
 --- !u!114 &519420034

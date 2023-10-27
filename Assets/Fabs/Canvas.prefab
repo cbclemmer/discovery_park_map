@@ -1092,8 +1092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   main_controller: {fileID: 0}
   search_bar: {fileID: 7865290932119297315}
-  class_results: []
-  buttons_results:
+  button_results:
   - {fileID: 2826349794362334994}
   - {fileID: 6918636944223973211}
   - {fileID: 2402059791504534083}
