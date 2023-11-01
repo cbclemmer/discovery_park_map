@@ -33,8 +33,13 @@ public class Search_Controller : MonoBehaviour, IPointerClickHandler
 
         for(int i = 0;i < 5; i++){
             var textLabel = button_results[i].GetComponentInChildren<TMP_Text>();
-            if(i < class_results.Count){
-                textLabel.text = class_results[i].name;
+            if(search_bar.text != ""){
+                if(i < class_results.Count){
+                    textLabel.text = class_results[i].name;
+                }
+                else{
+                    textLabel.text = "";
+                }
             }
             else{
                 textLabel.text = "";
