@@ -85,6 +85,12 @@ public class UI_Controller : MonoBehaviour
         SearchState.SetActive (state==Main_Controller.App_State.Search);
         RouteState.SetActive (state==Main_Controller.App_State.Route);
     }
+    public void Set_Map_State(){
+        Change_State(Main_Controller.App_State.Map);
+    }
+    public void Set_Search_State(){
+        Change_State(Main_Controller.App_State.Search);
+    }
     
     public void Change_Floor(int floor)
     {
