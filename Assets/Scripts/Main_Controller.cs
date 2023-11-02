@@ -18,9 +18,12 @@ public class Main_Controller : MonoBehaviour
     public Node_controller End_Node;
 
     public List<Node_controller> Nodes;
-    public List<Node_controller> Cur_Path; //list to store the current path in memory
-    // Start is called before the first frame update
-[Serializable]
+    public bool TestConnections;
+
+    //list to store the current path in memory
+    public List<Node_controller> Cur_Path; 
+    
+    public int CurrentFloor;
     public enum App_State{
         Splash,
         Map,
@@ -31,35 +34,7 @@ public class Main_Controller : MonoBehaviour
         Cancel
     }
     public App_State State = App_State.Splash;
-    public App_State state{
-        get{
-            return State;
-        }
-        set{
-            State = value;
-            if(value == App_State.Splash){
-                Debug.Log("App state Changed to Splash");
-            }
-            if(value == App_State.Map){
-                Debug.Log("App state Changed to Map");
-            }
-            if(value == App_State.Search){
-                Debug.Log("App state Changed to Search");
-            }
-            if(value == App_State.SearchWStart){
-                Debug.Log("App state Changed to SearchWStart");
-            }
-            if(value == App_State.Confirm){
-                Debug.Log("App state Changed to Confirm");
-            }
-            if(value == App_State.Route){
-                Debug.Log("App state Changed to Route");
-            }
-            if(value == App_State.Cancel){
-                Debug.Log("App state Changed to Cancel");
-            }
-        }
-    }
+    
     void Start()
     {
         Nodes = GameObject
@@ -67,11 +42,42 @@ public class Main_Controller : MonoBehaviour
             .Select(o => o.GetComponent<Node_controller>())
             .ToList();
 
-        var i = 0;
+        
+        // Set up ids
+        var currentId = 0;
         foreach (var node in Nodes)
         {
-            node.Id = i;
-            i++;
+            node.Id = currentId;
+            currentId++;
+        }
+
+        // Ensure nodes are connected both ways
+        foreach (var node in Nodes)
+        {
+            foreach (var connection in node.Connections)
+            {
+                if (!connection.Connections.Any(c => c.Id == node.Id)) 
+                {
+                    connection.Connections.Add(node);
+                }
+            }
+        }
+
+        // View all of the connected nodes
+        if (TestConnections) {
+            foreach(var node in Nodes)
+            {
+                var lineRenderer = node.GetComponent<LineRenderer>();
+                lineRenderer.positionCount = node.Connections.Count * 3;
+                for (var i = 0; i < node.Connections.Count; i++) 
+                {
+                    var connection = node.Connections[i];
+                    var j = i * 3;
+                    lineRenderer.SetPosition(j, node.transform.position);
+                    lineRenderer.SetPosition(j + 1, connection.transform.position);
+                    lineRenderer.SetPosition(j + 2, node.transform.position);
+                }
+            }
         }
     }
 
