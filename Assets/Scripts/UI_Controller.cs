@@ -12,6 +12,9 @@ public class UI_Controller : MonoBehaviour
     public GameObject SearchState;
     public GameObject RouteState;
     
+    public GameObject Floor_One_Sprite;
+    public GameObject Floor_Two_Sprite;
+
     [SerializeField] public TextMeshProUGUI TimeText;
     public Main_Controller MainController { get => GetComponent<Main_Controller>(); }
 
@@ -21,6 +24,13 @@ public class UI_Controller : MonoBehaviour
         9,10,11
     };
     public int ZoomLevel = 2;
+
+    void Start()
+    {
+        ZoomLevel = ZoomLevels.Count - 1;
+        UpdateZoom();
+    }
+
     public void ZoomIn()
     {
         if (ZoomLevel == 0)
@@ -82,4 +92,11 @@ public class UI_Controller : MonoBehaviour
         Change_State(Main_Controller.App_State.Search);
     }
     
+    public void Change_Floor(int floor)
+    {
+        if (floor < 1 || floor > 2) return;
+        MainController.CurrentFloor = floor;
+        Floor_One_Sprite.SetActive(floor == 1);
+        Floor_Two_Sprite.SetActive(floor == 2);
+    }
 }
