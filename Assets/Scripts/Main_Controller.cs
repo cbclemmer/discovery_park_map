@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System.IO;
 using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEditor.Experimental.GraphView;
 
 public class Main_Controller : MonoBehaviour
 {
@@ -94,16 +95,28 @@ public class Main_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //checks if mouse is clicked
          if(Input.GetMouseButtonDown(0)) {
+            //declare raycast for node location
             RaycastHit hit;
-            //Debug.Log("click");
+            //declare raycast for location of click
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit)) {
-                if(hit.transform.name == "B192" )Debug.Log("object clicked");
+            //call raycast function
+            Physics.Raycast(ray, out hit);
+            //Debug.Log("click");
+            //check if any nodes where clicked
+            foreach(var node in Nodes)
+            {
+                //Debug.Log("Am i Here?");
+                //was the position of the hit the same as a node?
+                if(hit.transform.position == node.transform.position ){
+                    Debug.Log("object clicked");
+                }
             }
-        }
-    
+            }
     }
+    
+    
 
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
     {
