@@ -6,6 +6,7 @@ using UnityEngine;
 using System;
 using System.Text.RegularExpressions;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 using System.Linq;
 using System.IO;
 using Unity.VisualScripting.Dependencies.NCalc;
@@ -16,16 +17,15 @@ public class Main_Controller : MonoBehaviour
     // delete later
     public UI_Controller UIController { get => GetComponent<UI_Controller>(); }
     public Node_controller Start_Node;
-    public Node_controller B192;
-    public Node_controller E178D;
+    public Node_controller End_Node;
 
     public List<Node_controller> Nodes;
     public bool TestConnections;
-    public List<Node_controller> Cur_Path; //list to store the current path in memory
-    // Start is called before the first frame update
 
+    //list to store the current path in memory
+    public List<Node_controller> Cur_Path; 
+    
     public int CurrentFloor;
-
     public enum App_State{
         Splash,
         Map,
@@ -36,6 +36,7 @@ public class Main_Controller : MonoBehaviour
         Cancel
     }
     public App_State State = App_State.Splash;
+    
     void Start()
     {
         Nodes = GameObject
@@ -81,17 +82,7 @@ public class Main_Controller : MonoBehaviour
             }
         }
     }
-
-    public void Draw_B192()
-    {
-        UIController.Draw_Path(Find_Path(Start_Node, B192));
-    }
-
-    public void Draw_E178D()
-    {
-        UIController.Draw_Path(Find_Path(Start_Node, E178D));
-    }
-
+    
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
     {
        return Path_Controller.FindShortestPath(start,end, Nodes);
@@ -102,7 +93,7 @@ public class Main_Controller : MonoBehaviour
         Regex regex = new Regex($"^{Regex.Escape(search.ToLower())}");
         var results = new List<Node_controller>();
         for (int i = 0; i < Nodes.Count; i++){
-            if(regex.Match(Nodes[i].Name.ToLower()).Success){
+            if(Nodes[i].transform.parent.name == "Room_Nodes" && regex.Match(Nodes[i].Name.ToLower()).Success){
                 results.Add(Nodes[i]);
             }
         }
