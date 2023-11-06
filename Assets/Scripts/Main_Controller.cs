@@ -92,32 +92,6 @@ public class Main_Controller : MonoBehaviour
         UIController.Draw_Path(Find_Path(Start_Node, E178D));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //checks if mouse is clicked
-         if(Input.GetMouseButtonDown(0)) {
-            //declare raycast for node location
-            RaycastHit hit;
-            //declare raycast for location of click
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //call raycast function
-            Physics.Raycast(ray, out hit);
-            //Debug.Log("click");
-            //check if any nodes where clicked
-            foreach(var node in Nodes)
-            {
-                //Debug.Log("Am i Here?");
-                //was the position of the hit the same as a node?
-                if(hit.transform.position == node.transform.position ){
-                    Debug.Log("object clicked");
-                }
-            }
-            }
-    }
-    
-    
-
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
     {
        return Path_Controller.FindShortestPath(start,end, Nodes);

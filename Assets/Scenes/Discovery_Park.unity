@@ -877,6 +877,8 @@ MonoBehaviour:
   - 20
   - 30
   ZoomLevel: 2
+  ClickNodeDistance: 1
+  MaxClickFrames: 60
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0

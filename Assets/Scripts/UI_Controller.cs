@@ -24,11 +24,42 @@ public class UI_Controller : MonoBehaviour
         9,10,11
     };
     public int ZoomLevel = 2;
+    public float ClickNodeDistance;
+    public int MaxClickFrames;
+    private int _currentClickFrames;
 
     void Start()
     {
         ZoomLevel = ZoomLevels.Count - 1;
         UpdateZoom();
+    }
+
+    void Update()
+    {
+        //checks if mouse is clicked
+        if(Input.GetMouseButton(0)) {
+            _currentClickFrames++;
+        } else {
+            if (_currentClickFrames > 0 && _currentClickFrames < MaxClickFrames) {
+                _handleClick();
+            }
+            _currentClickFrames = 0;
+        }
+    }
+
+    private void _handleClick()
+    {
+        //declare raycast for location of click
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        
+        foreach(var node in MainController.Nodes)
+        {
+            if (node.Name == string.Empty) continue;
+            if((mousePos - node.transform.position).magnitude < ClickNodeDistance) {
+                Debug.Log(node.Name);
+            }
+        }
     }
 
     public void ZoomIn()
