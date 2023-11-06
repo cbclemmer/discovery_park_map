@@ -9,6 +9,8 @@ using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using System.Linq;
 using System.IO;
+using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEditor.Experimental.GraphView;
 
 public class Main_Controller : MonoBehaviour
 {
@@ -80,12 +82,6 @@ public class Main_Controller : MonoBehaviour
             }
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
     public List<Node_controller> Find_Path(Node_controller start, Node_controller end) 
     {
@@ -116,4 +112,6 @@ public class Main_Controller : MonoBehaviour
         float walkTime = sum/1.338f; //average walking speed is 1.388 meters per second
         return (int)(walkTime); //give time in minutes 
     }
+
 }
+
