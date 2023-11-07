@@ -88,7 +88,6 @@ public class Main_Controller : MonoBehaviour
        return Path_Controller.FindShortestPath(start,end, Nodes);
     }
     
-    
     public List<Node_controller> Search_Nodes(string search){
         Regex regex = new Regex($"^{Regex.Escape(search.ToLower())}");
         var results = new List<Node_controller>();
@@ -104,7 +103,7 @@ public class Main_Controller : MonoBehaviour
 
     public int GetWalkTime() { //converts path distance into walktime, 1 unity unit = 1 meter
         if (Cur_Path == null){ 
-            return int.MaxValue;
+            throw new Exception("UI::GetWalkTimeString: Current path is not set");
         }
         float sum = 0;
         for(int i = 0; i < Cur_Path.Count -1; i++){
