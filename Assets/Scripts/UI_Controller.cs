@@ -81,22 +81,35 @@ public class UI_Controller : MonoBehaviour
         GetComponent<Camera>().orthographicSize = ZoomLevels[ZoomLevel];
     }
 
+    public void Create_Path()
+    {
+        if (MainController.Start_Node == null || MainController.End_Node == null)
+        {
+            throw new System.Exception("UI::Create_Path: Main controller start node or end node is not set");
+        }
+
+        var path = MainController.Find_Path(MainController.Start_Node, MainController.End_Node);
+        MainController.Cur_Path = path;
+        Draw_Path(path);
+    }
+
     public void Draw_Path(List<Node_controller> path)
     {
         Remove_Path();
         for(int i=0; i < path.Count -1; i++)
         {
             path[i].Draw_Line(path[i + 1]);
-            
         }
-        MainController.Cur_Path = path;
-        int walkTime = MainController.GetWalkTime();
-        SetWalkTime(walkTime);
     }
 
-    public void SetWalkTime(int walkTime){
-         Debug.Log(walkTime);
-         TimeText.text = $"Walk Time: {walkTime/60} min {walkTime%60} sec";  
+    public string GetWalkTimeString()
+    {
+        var walkTime = MainController.GetWalkTime();
+        return $"{walkTime/60} min {walkTime%60} sec";
+    }
+
+    public void SetWalkTime(){
+         TimeText.text = $"Walk Time: {GetWalkTimeString()}";
     }
 
     public void Remove_Path(){
@@ -106,7 +119,6 @@ public class UI_Controller : MonoBehaviour
         for(int i=0; i <  MainController.Cur_Path.Count -1; i++){
             MainController.Cur_Path[i].Remove_Line();
         }
-        MainController.Cur_Path = null;
     }
     public void Change_State(Main_Controller.App_State state){
         MainController.State = state;       
