@@ -19,11 +19,22 @@ public class Confirm_Controller : MonoBehaviour
         End_Text.text = UIController.MainController.End_Node.Name;
         UIController.Create_Path();
         Walk_Text.text = UIController.GetWalkTimeString();
+        // TODO: Reset view to default
+    }
+
+    public void Confirm()
+    {
+        if (UIController.MainController.Cur_Path == null)
+        {
+            throw new System.Exception("Confirm::Confirm: current path not set");
+        }
+
+        UIController.Change_State(Main_Controller.App_State.Route);
+        UIController.SetWalkTime();
     }
 
     public void Cancel()
     {
-        if (UIController.MainController.State != Main_Controller.App_State.Confirm) return;
         UIController.MainController.Start_Node = null;
         UIController.MainController.End_Node = null;
         UIController.Change_State(Main_Controller.App_State.Map);
