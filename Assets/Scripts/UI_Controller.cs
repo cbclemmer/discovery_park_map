@@ -81,6 +81,12 @@ public class UI_Controller : MonoBehaviour
         GetComponent<Camera>().orthographicSize = ZoomLevels[ZoomLevel];
     }
 
+    public void ResetZoom()
+    {
+        ZoomLevel = ZoomLevels.Count - 1;
+        UpdateZoom();
+    }
+
     public void Create_Path()
     {
         if (MainController.Start_Node == null || MainController.End_Node == null)
@@ -122,6 +128,7 @@ public class UI_Controller : MonoBehaviour
     }
     public void Change_State(Main_Controller.App_State state){
         MainController.State = state;       
+        Reset_view();
         SplashState.SetActive (state==Main_Controller.App_State.Splash);
         MapState.SetActive (state==Main_Controller.App_State.Map);
         ConfirmState.SetActive (state==Main_Controller.App_State.Confirm);
@@ -141,5 +148,13 @@ public class UI_Controller : MonoBehaviour
         MainController.CurrentFloor = floor;
         Floor_One_Sprite.SetActive(floor == 1);
         Floor_Two_Sprite.SetActive(floor == 2);
+    }
+
+    public void Reset_view()
+    {
+        Camera.main.transform.position = new Vector3(0, 0, -10);
+        Camera.main.transform.rotation = Quaternion.identity;
+        ResetZoom();
+        Change_Floor(1);
     }
 }
