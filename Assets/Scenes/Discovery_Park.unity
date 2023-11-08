@@ -806,6 +806,30 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7415462873647992843, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 519420034}
+    - target: {fileID: 7415462873647992843, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Reset_view
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415462873647992843, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI_Controller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7495495050022574171, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 519420034}
+    - target: {fileID: 7495495050022574171, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Reset_view
+      objectReference: {fileID: 0}
+    - target: {fileID: 7495495050022574171, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI_Controller, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7575358833904031207, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
       propertyPath: UIController
       value: 
@@ -901,6 +925,7 @@ GameObject:
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1043,6 +1068,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bddf38e6138b44d8f06ed606b32114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaed652191e8e437ea7fd5ec98de9533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 0}
 --- !u!1 &570118692
 GameObject:
   m_ObjectHideFlags: 0

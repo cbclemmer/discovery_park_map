@@ -36,6 +36,7 @@ public class Search_Controller : MonoBehaviour
     public void ClickSearchOption(int index)
     {
         if (main_controller.Start_Node != null) index--;
+        if (search_bar.text == null || search_bar.text == string.Empty) return;
         var searchNodes = main_controller.Search_Nodes(search_bar.text);
         if (index > searchNodes.Count - 1) return;
         var clickedNode = searchNodes[index];
