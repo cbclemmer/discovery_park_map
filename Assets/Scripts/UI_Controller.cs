@@ -45,6 +45,13 @@ public class UI_Controller : MonoBehaviour
             }
             _currentClickFrames = 0;
         }
+        //scroll to zoom
+        if(Input.GetAxis("Mouse ScrollWheel") > 0){ //zoom in
+            ZoomIn();
+        }
+        if(Input.GetAxis("Mouse ScrollWheel") < 0){ //zoom out
+            ZoomOut();
+        }
     }
 
     private void _handleClick()
