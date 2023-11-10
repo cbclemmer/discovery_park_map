@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+//using System.Numerics;
+//using Vector3 = UnityEngine.Vector3;
 
 
 public class UI_Controller : MonoBehaviour
@@ -45,6 +47,36 @@ public class UI_Controller : MonoBehaviour
             }
             _currentClickFrames = 0;
         }
+        //scroll to zoom
+        if(Input.GetAxis("Mouse ScrollWheel") > 0){ //zoom in
+            ZoomIn();
+        }
+        if(Input.GetAxis("Mouse ScrollWheel") < 0){ //zoom out
+            ZoomOut();
+        }
+        //Scroll to zoom
+        if(Input.touchCount == 2){ //check if two fingers on
+            float distance;
+            float new_distance;
+            var touch_one = Input.GetTouch(0).position; //tracker for first touch
+            var touch_two = Input.GetTouch(1).position; //tracker for second touch
+            distance = Vector2.Distance(touch_one, touch_two);
+            while(Input.touchCount == 2){ //track the position of two touches and if distance increases or decreases
+                touch_one = Input.GetTouch(0).position; //tracker for first touch
+                touch_two = Input.GetTouch(1).position;
+                new_distance = Vector2.Distance(touch_one, touch_two);
+                if(new_distance > distance){
+                    ZoomOut();
+                    distance = new_distance;
+                }
+                if(new_distance < distance){
+                    ZoomIn();
+                    distance = new_distance;
+                }
+            }
+        }
+        
+
     }
 
     private void _handleClick()
