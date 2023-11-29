@@ -14,6 +14,8 @@ public class UI_Controller : MonoBehaviour
     public GameObject SearchState;
     public GameObject RouteState;
     
+
+    public Sprite Start_Icon; 
     public GameObject Floor_One_Sprite;
     public GameObject Floor_Two_Sprite;
 
@@ -89,7 +91,16 @@ public class UI_Controller : MonoBehaviour
         {
             if (node.Name == string.Empty) continue;
             if((mousePos - node.transform.position).magnitude < ClickNodeDistance) {
-                Debug.Log(node.Name);
+                //Debug.Log(node.Name);
+                var camera_x = node.transform.position.x;
+                var camera_y = node.transform.position.y;
+                        //Change_State(Main_Controller.App_State.Search);
+                         //node.gameObject.GetComponent<SpriteRenderer>().sprite = Start_Icon;
+                         Camera.main.transform.position =  new Vector3(camera_x, camera_y, -10);
+                         Camera.main.transform.rotation = Quaternion.identity;
+                         ZoomLevel = 1;
+                         UpdateZoom();
+
             }
         }
     }
