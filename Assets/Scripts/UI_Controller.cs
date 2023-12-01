@@ -20,7 +20,7 @@ public class UI_Controller : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI TimeText;
     public Main_Controller MainController { get => GetComponent<Main_Controller>(); }
-    //public Search_Controller search_controller;
+    public Search_Controller search_controller;
     public List<float> ZoomLevels = new List<float>
     {
         6,7,8,
@@ -99,9 +99,9 @@ public class UI_Controller : MonoBehaviour
                          ZoomLevel = 1; //set zoom level
                          UpdateZoom(); 
                          if(MainController.Start_Node == null){
-                         //Change_State(Main_Controller.App_State.Search);
-                         //search_controller._setStart(node);
-                         MainController.Start_Node = node; //declare as start node
+                         Change_State(Main_Controller.App_State.Search);
+                         search_controller._setStart(node);
+                        //  MainController.Start_Node = node; //declare as start node
                          }
                          else{
                             if(MainController.End_Node == null)

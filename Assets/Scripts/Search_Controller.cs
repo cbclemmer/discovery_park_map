@@ -61,7 +61,7 @@ public class Search_Controller : MonoBehaviour
         InputUpdate();
     }
 
-    private void _setStart(Node_controller startNode)
+    public void _setStart(Node_controller startNode)
     {
         main_controller.Start_Node = startNode;
         var textBox = button_results[0].GetComponentInChildren<TMP_Text>();
