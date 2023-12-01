@@ -290,6 +290,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6485557728682766615, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
   m_PrefabInstance: {fileID: 508364947}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &129074972 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8552621999267688535, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129074971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e889b0afe0f444db3394a2b7b0e4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &131127100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6805768334108995579, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
@@ -1143,6 +1154,7 @@ MonoBehaviour:
   Floor_One_Sprite: {fileID: 2081480054}
   Floor_Two_Sprite: {fileID: 570118692}
   TimeText: {fileID: 881475044}
+  search_controller: {fileID: 129074972}
   ZoomLevels:
   - 3
   - 5
