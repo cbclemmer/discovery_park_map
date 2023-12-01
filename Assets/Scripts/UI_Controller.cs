@@ -5,7 +5,6 @@ using TMPro;
 //using System.Numerics;
 //using Vector3 = UnityEngine.Vector3;
 
-
 public class UI_Controller : MonoBehaviour
 {
     public GameObject SplashState;
@@ -21,7 +20,7 @@ public class UI_Controller : MonoBehaviour
 
     [SerializeField] public TextMeshProUGUI TimeText;
     public Main_Controller MainController { get => GetComponent<Main_Controller>(); }
-
+    //public Search_Controller search_controller;
     public List<float> ZoomLevels = new List<float>
     {
         6,7,8,
@@ -89,21 +88,31 @@ public class UI_Controller : MonoBehaviour
         
         foreach(var node in MainController.Nodes)
         {
-            if (node.Name == string.Empty) continue;
+            if (node.Name == string.Empty) continue; 
             if((mousePos - node.transform.position).magnitude < ClickNodeDistance) {
-                //Debug.Log(node.Name);
-                var camera_x = node.transform.position.x;
+                //this function is a work in progress
+                var camera_x = node.transform.position.x;//get position of node for zoom in
                 var camera_y = node.transform.position.y;
-                        //Change_State(Main_Controller.App_State.Search);
-                         //node.gameObject.GetComponent<SpriteRenderer>().sprite = Start_Icon;
-                         Camera.main.transform.position =  new Vector3(camera_x, camera_y, -10);
-                         Camera.main.transform.rotation = Quaternion.identity;
-                         ZoomLevel = 1;
-                         UpdateZoom();
+                         //node.gameObject.GetComponent<SpriteRenderer>().sprite = Start_Icon; ///to change to icon, doesnt work
+                         Camera.main.transform.position =  new Vector3(camera_x, camera_y, -10); //zoom on clicked node
+                         Camera.main.transform.rotation = Quaternion.identity; //make sure camera is correct
+                         ZoomLevel = 1; //set zoom level
+                         UpdateZoom(); 
+                         if(MainController.Start_Node == null){
+                         //Change_State(Main_Controller.App_State.Search);
+                         //search_controller._setStart(node);
+                         MainController.Start_Node = node; //declare as start node
+                         }
+                         else{
+                            if(MainController.End_Node == null)
+                             MainController.End_Node = node;
+                            Change_State(Main_Controller.App_State.Confirm);
+                         }
 
             }
         }
     }
+
 
     public void ZoomIn()
     {

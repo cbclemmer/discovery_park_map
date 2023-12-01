@@ -1139,6 +1139,7 @@ MonoBehaviour:
   ConfirmState: {fileID: 131127100}
   SearchState: {fileID: 129074971}
   RouteState: {fileID: 420531327}
+  Start_Icon: {fileID: 0}
   Floor_One_Sprite: {fileID: 2081480054}
   Floor_Two_Sprite: {fileID: 570118692}
   TimeText: {fileID: 881475044}
@@ -1924,6 +1925,10 @@ PrefabInstance:
     - target: {fileID: 3127034741391479955, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
       propertyPath: Name
       value: E178D
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127034741391479955, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
+      propertyPath: Type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4329977615832120818, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
       propertyPath: m_Name
