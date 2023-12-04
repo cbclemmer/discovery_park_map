@@ -50,7 +50,8 @@ public class Main_Controller : MonoBehaviour
         {
             foreach (var connection in node.Connections)
             {
-                if (!connection.Connections.Any(c => c.Id == node.Id)) 
+                if (connection != null && connection.Connections != null 
+                    && !connection.Connections.Any(c => c.Id == node.Id)) 
                 {
                     connection.Connections.Add(node);
                 }
@@ -66,6 +67,7 @@ public class Main_Controller : MonoBehaviour
                 for (var i = 0; i < node.Connections.Count; i++) 
                 {
                     var connection = node.Connections[i];
+                    if (connection == null) continue;
                     var j = i * 3;
                     lineRenderer.SetPosition(j, node.transform.position);
                     lineRenderer.SetPosition(j + 1, connection.transform.position);
