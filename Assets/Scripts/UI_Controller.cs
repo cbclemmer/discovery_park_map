@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-//using System.Numerics;
-//using Vector3 = UnityEngine.Vector3;
-
 
 public class UI_Controller : MonoBehaviour
 {
