@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
 
 public class UI_Controller : MonoBehaviour
 {
@@ -24,11 +22,72 @@ public class UI_Controller : MonoBehaviour
         9,10,11
     };
     public int ZoomLevel = 2;
+    public float ClickNodeDistance;
+    public int MaxClickFrames;
+    private int _currentClickFrames;
 
     void Start()
     {
         ZoomLevel = ZoomLevels.Count - 1;
         UpdateZoom();
+    }
+
+    void Update()
+    {
+        //checks if mouse is clicked
+        if(Input.GetMouseButton(0)) {
+            _currentClickFrames++;
+        } else {
+            if (_currentClickFrames > 0 && _currentClickFrames < MaxClickFrames) {
+                _handleClick();
+            }
+            _currentClickFrames = 0;
+        }
+        //scroll to zoom
+        if(Input.GetAxis("Mouse ScrollWheel") > 0){ //zoom in
+            ZoomIn();
+        }
+        if(Input.GetAxis("Mouse ScrollWheel") < 0){ //zoom out
+            ZoomOut();
+        }
+        //Scroll to zoom
+        if(Input.touchCount == 2){ //check if two fingers on
+            float distance;
+            float new_distance;
+            var touch_one = Input.GetTouch(0).position; //tracker for first touch
+            var touch_two = Input.GetTouch(1).position; //tracker for second touch
+            distance = Vector2.Distance(touch_one, touch_two);
+            while(Input.touchCount == 2){ //track the position of two touches and if distance increases or decreases
+                touch_one = Input.GetTouch(0).position; //tracker for first touch
+                touch_two = Input.GetTouch(1).position;
+                new_distance = Vector2.Distance(touch_one, touch_two);
+                if(new_distance > distance){
+                    ZoomOut();
+                    distance = new_distance;
+                }
+                if(new_distance < distance){
+                    ZoomIn();
+                    distance = new_distance;
+                }
+            }
+        }
+        
+
+    }
+
+    private void _handleClick()
+    {
+        //declare raycast for location of click
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        
+        foreach(var node in MainController.Nodes)
+        {
+            if (node.Name == string.Empty) continue;
+            if((mousePos - node.transform.position).magnitude < ClickNodeDistance) {
+                Debug.Log(node.Name);
+            }
+        }
     }
 
     public void ZoomIn()
@@ -50,22 +109,41 @@ public class UI_Controller : MonoBehaviour
         GetComponent<Camera>().orthographicSize = ZoomLevels[ZoomLevel];
     }
 
+    public void ResetZoom()
+    {
+        ZoomLevel = ZoomLevels.Count - 1;
+        UpdateZoom();
+    }
+
+    public void Create_Path()
+    {
+        if (MainController.Start_Node == null || MainController.End_Node == null)
+        {
+            throw new System.Exception("UI::Create_Path: Main controller start node or end node is not set");
+        }
+
+        var path = MainController.Find_Path(MainController.Start_Node, MainController.End_Node);
+        MainController.Cur_Path = path;
+        Draw_Path(path);
+    }
+
     public void Draw_Path(List<Node_controller> path)
     {
         Remove_Path();
         for(int i=0; i < path.Count -1; i++)
         {
             path[i].Draw_Line(path[i + 1]);
-            
         }
-        MainController.Cur_Path = path;
-        int walkTime = MainController.GetWalkTime();
-        SetWalkTime(walkTime);
     }
 
-    public void SetWalkTime(int walkTime){
-         Debug.Log(walkTime);
-         TimeText.text = $"Walk Time: {walkTime/60} min {walkTime%60} sec";  
+    public string GetWalkTimeString()
+    {
+        var walkTime = MainController.GetWalkTime();
+        return $"{walkTime/60} min {walkTime%60} sec";
+    }
+
+    public void SetWalkTime(){
+         TimeText.text = $"Walk Time: {GetWalkTimeString()}";
     }
 
     public void Remove_Path(){
@@ -75,10 +153,10 @@ public class UI_Controller : MonoBehaviour
         for(int i=0; i <  MainController.Cur_Path.Count -1; i++){
             MainController.Cur_Path[i].Remove_Line();
         }
-        MainController.Cur_Path = null;
     }
     public void Change_State(Main_Controller.App_State state){
         MainController.State = state;       
+        Reset_view();
         SplashState.SetActive (state==Main_Controller.App_State.Splash);
         MapState.SetActive (state==Main_Controller.App_State.Map);
         ConfirmState.SetActive (state==Main_Controller.App_State.Confirm);
@@ -98,5 +176,13 @@ public class UI_Controller : MonoBehaviour
         MainController.CurrentFloor = floor;
         Floor_One_Sprite.SetActive(floor == 1);
         Floor_Two_Sprite.SetActive(floor == 2);
+    }
+
+    public void Reset_view()
+    {
+        Camera.main.transform.position = new Vector3(0, 0, -10);
+        Camera.main.transform.rotation = Quaternion.identity;
+        ResetZoom();
+        Change_Floor(1);
     }
 }

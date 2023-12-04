@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // Based on Dijkstra's Algorithm
