@@ -52,6 +52,16 @@ public class Search_Controller : MonoBehaviour
         InputUpdate();
     }
 
+    public void tappedEnd(Node_controller endNode){ //function for if the end node is selected via tap.
+       
+         if(main_controller.End_Node == null) {
+            confirm_Controller.Set_Confirm_State(endNode); //set the end node in confirm controller
+            button_results[0].GetComponentInChildren<TMP_Text>().text = string.Empty; //get string for confirm screen
+        }
+        search_bar.text = string.Empty;
+        InputUpdate(); //update
+    }
+
     public void CancelSearch()
     {
         main_controller.Start_Node = null;

@@ -12,6 +12,7 @@ public class UI_Controller : MonoBehaviour
     public GameObject ConfirmState;
     public GameObject SearchState;
     public GameObject RouteState;
+    //public GameObject SearchWStartState;
     
 
     public Sprite Start_Icon; 
@@ -90,7 +91,6 @@ public class UI_Controller : MonoBehaviour
         {
             if (node.Name == string.Empty) continue; 
             if((mousePos - node.transform.position).magnitude < ClickNodeDistance) {
-                //this function is a work in progress
                 var camera_x = node.transform.position.x;//get position of node for zoom in
                 var camera_y = node.transform.position.y;
                          //node.gameObject.GetComponent<SpriteRenderer>().sprite = Start_Icon; ///to change to icon, doesnt work
@@ -98,14 +98,13 @@ public class UI_Controller : MonoBehaviour
                          Camera.main.transform.rotation = Quaternion.identity; //make sure camera is correct
                          ZoomLevel = 1; //set zoom level
                          UpdateZoom(); 
-                         if(MainController.Start_Node == null){
-                         Change_State(Main_Controller.App_State.Search);
+                         if(MainController.Start_Node == null){ //set start node
                          search_controller._setStart(node);
-                        //  MainController.Start_Node = node; //declare as start node
                          }
-                         else{
+                         else{ //set end node and go to confirmation screen
                             if(MainController.End_Node == null)
-                             MainController.End_Node = node;
+                            Change_State(Main_Controller.App_State.Search);
+                            search_controller.tappedEnd(node);  
                             Change_State(Main_Controller.App_State.Confirm);
                          }
 
@@ -185,6 +184,7 @@ public class UI_Controller : MonoBehaviour
         MapState.SetActive (state==Main_Controller.App_State.Map);
         ConfirmState.SetActive (state==Main_Controller.App_State.Confirm);
         SearchState.SetActive (state==Main_Controller.App_State.Search);
+        //SearchWStartState.SetActive (state==Main_Controller.App_State.SearchWStart);
         RouteState.SetActive (state==Main_Controller.App_State.Route);
     }
     public void Set_Map_State(){
