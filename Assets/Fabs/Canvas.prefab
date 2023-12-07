@@ -366,6 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3701847235811281531}
+  - component: {fileID: 2800347717982910480}
   m_Layer: 5
   m_Name: ConfirmNode
   m_TagString: Untagged
@@ -393,6 +394,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2800347717982910480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658587099797071934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87d63e58440d7740a596b09edfb54d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConfirmText: {fileID: 7346349156972656421}
+  RoomText: {fileID: 8247995828190841306}
+  UIController: {fileID: 0}
 --- !u!1 &1983659044961237634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,7 +1574,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3399093993128623444}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2800347717982910480}
+        m_TargetAssemblyTypeName: Confirm_Node_Controller, Assembly-CSharp
+        m_MethodName: CancelNodeSelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2692955093502869563
 GameObject:
   m_ObjectHideFlags: 0
@@ -7323,7 +7351,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4014246178478815025}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2800347717982910480}
+        m_TargetAssemblyTypeName: Confirm_Node_Controller, Assembly-CSharp
+        m_MethodName: ConfirmButtonFn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1538988582706973633
 PrefabInstance:
   m_ObjectHideFlags: 0

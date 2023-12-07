@@ -1698,6 +1698,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 528604229950657555, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
   m_PrefabInstance: {fileID: 169899279}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &175829838 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7346349156972656421, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &181435391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4235,6 +4246,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2800347717982910480, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: UIController
+      value: 
+      objectReference: {fileID: 519420034}
+    - target: {fileID: 2800347717982910480, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: ConfirmNodeRoomText
+      value: 
+      objectReference: {fileID: 175829838}
     - target: {fileID: 3725322431267244638, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -4260,34 +4279,6 @@ PrefabInstance:
       value: UI_Controller, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3725322431267244638, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509300506906642617, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509300506906642617, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509300506906642617, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 519420034}
-    - target: {fileID: 5509300506906642617, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509300506906642617, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ConfirmNode
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509300506906642617, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI_Controller, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509300506906642617, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -4495,34 +4486,6 @@ PrefabInstance:
       propertyPath: UIController
       value: 
       objectReference: {fileID: 519420034}
-    - target: {fileID: 7703872742683383774, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7703872742683383774, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7703872742683383774, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 519420034}
-    - target: {fileID: 7703872742683383774, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7703872742683383774, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CancelNodeSelect
-      objectReference: {fileID: 0}
-    - target: {fileID: 7703872742683383774, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI_Controller, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7703872742683383774, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 7743950342175187487, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -4609,6 +4572,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1658587099797071934, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
   m_PrefabInstance: {fileID: 508364947}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &508364950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2800347717982910480, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508364948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87d63e58440d7740a596b09edfb54d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4747,6 +4721,7 @@ MonoBehaviour:
   Floor_Two_Sprite: {fileID: 570118692}
   TimeText: {fileID: 881475044}
   search_controller: {fileID: 129074972}
+  ConfirmNodeController: {fileID: 508364950}
   ZoomLevels:
   - 3
   - 5

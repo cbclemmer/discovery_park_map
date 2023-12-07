@@ -19,6 +19,7 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] public TextMeshProUGUI TimeText;
     public Main_Controller MainController { get => GetComponent<Main_Controller>(); }
     public Search_Controller search_controller;
+    public Confirm_Node_Controller ConfirmNodeController;
     public List<float> ZoomLevels = new List<float>
     {
         6,7,8,
@@ -28,15 +29,6 @@ public class UI_Controller : MonoBehaviour
     public float ClickNodeDistance;
     public int MaxClickFrames;
     private int _currentClickFrames;
-    private Node_controller _confirmNode = null;
-
-    private enum ConfirmNodeType
-    {
-        NotConfirming,
-        SetStart,
-        SetEnd
-    }
-    private ConfirmNodeType _confirmType;
 
     void Start()
     {
@@ -104,14 +96,12 @@ public class UI_Controller : MonoBehaviour
         if (clickedNode == null) return;
 
         if(MainController.State == Main_Controller.App_State.Map) { //set start clickedNode
-            _handleStartNodeClick(clickedNode);
+            ConfirmNodeController.HandleStartNodeClick(clickedNode);
         }
         else{ //set end clickedNode and go to confirmation screen
-            if(MainController.End_Node == null)
-                Change_State(Main_Controller.App_State.Search);
-                search_controller.tappedEnd(clickedNode);  
-                Change_State(Main_Controller.App_State.Confirm);
-            }
+            // TODO: Handle destination node click
+            return;
+        }
     }
 
     private void _handleClick()
@@ -120,19 +110,6 @@ public class UI_Controller : MonoBehaviour
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         _checkNodeClick(mousePos);
-    }
-
-    private void _handleStartNodeClick(Node_controller node)
-    {
-        Change_State(Main_Controller.App_State.ConfirmNode, false);
-        var camera_x = node.transform.position.x;//get position of node for zoom in
-        var camera_y = node.transform.position.y;
-        Camera.main.transform.position =  new Vector3(camera_x, camera_y, -10); //zoom on clicked clickedNode
-        Camera.main.transform.rotation = Quaternion.identity; //make sure camera is correct
-        ZoomLevel = 1; //set zoom level
-        UpdateZoom();
-        _confirmType = ConfirmNodeType.SetStart;
-        _confirmNode = node;
     }
 
 
@@ -236,39 +213,5 @@ public class UI_Controller : MonoBehaviour
         Camera.main.transform.rotation = Quaternion.identity;
         ResetZoom();
         Change_Floor(1);
-    }
-
-    public void ConfirmNode()
-    {
-        switch (_confirmType)
-        {
-            case ConfirmNodeType.NotConfirming:
-                return;
-            case ConfirmNodeType.SetStart:
-                _confirmNodeStart();
-                return;
-            case ConfirmNodeType.SetEnd:
-                return;
-        }
-    }
-
-    public void CancelNodeSelect()
-    {
-        switch (_confirmType)
-        {
-            case ConfirmNodeType.NotConfirming:
-                return;
-            case ConfirmNodeType.SetEnd:
-            case ConfirmNodeType.SetStart:
-                _confirmNode = null;
-                _confirmType = ConfirmNodeType.NotConfirming;
-                Change_State(Main_Controller.App_State.Map);
-                return;
-        }
-    }
-
-    private void _confirmNodeStart()
-    {
-        
     }
 }
