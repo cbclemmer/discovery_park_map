@@ -48,10 +48,11 @@ public class Main_Controller : MonoBehaviour
         // Ensure nodes are connected both ways
         foreach (var node in Nodes)
         {
+            node.Connections = node.Connections.Where(c => c != null).ToList();
             foreach (var connection in node.Connections)
             {
                 if (connection != null && connection.Connections != null 
-                    && !connection.Connections.Any(c => c.Id == node.Id)) 
+                    && !connection.Connections.Any(c => c != null && c.Id == node.Id)) 
                 {
                     connection.Connections.Add(node);
                 }
