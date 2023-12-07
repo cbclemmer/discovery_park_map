@@ -22,11 +22,12 @@ public class Main_Controller : MonoBehaviour
         Splash,
         Map,
         Search,
-        SearchWStart,
+        ConfirmNode,
         Confirm,
         Route, 
         Cancel
     }
+
     public App_State State = App_State.Splash;
     
     void Start()
@@ -48,10 +49,11 @@ public class Main_Controller : MonoBehaviour
         // Ensure nodes are connected both ways
         foreach (var node in Nodes)
         {
+            node.Connections = node.Connections.Where(c => c != null).ToList();
             foreach (var connection in node.Connections)
             {
                 if (connection != null && connection.Connections != null 
-                    && !connection.Connections.Any(c => c.Id == node.Id)) 
+                    && !connection.Connections.Any(c => c != null && c.Id == node.Id)) 
                 {
                     connection.Connections.Add(node);
                 }

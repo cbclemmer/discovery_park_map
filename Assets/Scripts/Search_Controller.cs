@@ -42,7 +42,7 @@ public class Search_Controller : MonoBehaviour
         var clickedNode = searchNodes[index];
         if (main_controller.Start_Node == null)
         {
-            _setStart(clickedNode);
+            SetStart(clickedNode);
             
         } else {
             confirm_Controller.Set_Confirm_State(clickedNode);
@@ -50,6 +50,16 @@ public class Search_Controller : MonoBehaviour
         }
         search_bar.text = string.Empty;
         InputUpdate();
+    }
+
+    public void tappedEnd(Node_controller endNode){ //function for if the end node is selected via tap.
+       
+         if(main_controller.End_Node == null) {
+            confirm_Controller.Set_Confirm_State(endNode); //set the end node in confirm controller
+            button_results[0].GetComponentInChildren<TMP_Text>().text = string.Empty; //get string for confirm screen
+        }
+        search_bar.text = string.Empty;
+        InputUpdate(); //update
     }
 
     public void CancelSearch()
@@ -61,7 +71,7 @@ public class Search_Controller : MonoBehaviour
         InputUpdate();
     }
 
-    private void _setStart(Node_controller startNode)
+    public void SetStart(Node_controller startNode)
     {
         main_controller.Start_Node = startNode;
         var textBox = button_results[0].GetComponentInChildren<TMP_Text>();
