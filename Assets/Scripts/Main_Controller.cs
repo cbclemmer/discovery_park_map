@@ -1,16 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
 using System;
 using System.Text.RegularExpressions;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 using System.Linq;
-using System.IO;
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEditor.Experimental.GraphView;
 
 public class Main_Controller : MonoBehaviour
 {
@@ -30,11 +22,12 @@ public class Main_Controller : MonoBehaviour
         Splash,
         Map,
         Search,
-        SearchWStart,
+        ConfirmNode,
         Confirm,
         Route, 
         Cancel
     }
+
     public App_State State = App_State.Splash;
     
     void Start()
@@ -56,9 +49,11 @@ public class Main_Controller : MonoBehaviour
         // Ensure nodes are connected both ways
         foreach (var node in Nodes)
         {
+            node.Connections = node.Connections.Where(c => c != null).ToList();
             foreach (var connection in node.Connections)
             {
-                if (!connection.Connections.Any(c => c.Id == node.Id)) 
+                if (connection != null && connection.Connections != null 
+                    && !connection.Connections.Any(c => c != null && c.Id == node.Id)) 
                 {
                     connection.Connections.Add(node);
                 }
@@ -74,6 +69,7 @@ public class Main_Controller : MonoBehaviour
                 for (var i = 0; i < node.Connections.Count; i++) 
                 {
                     var connection = node.Connections[i];
+                    if (connection == null) continue;
                     var j = i * 3;
                     lineRenderer.SetPosition(j, node.transform.position);
                     lineRenderer.SetPosition(j + 1, connection.transform.position);

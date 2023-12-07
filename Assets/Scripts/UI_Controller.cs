@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-//using System.Numerics;
-//using Vector3 = UnityEngine.Vector3;
 
 public class UI_Controller : MonoBehaviour
 {
@@ -12,7 +9,7 @@ public class UI_Controller : MonoBehaviour
     public GameObject ConfirmState;
     public GameObject SearchState;
     public GameObject RouteState;
-    //public GameObject SearchWStartState;
+    public GameObject ConfirmNodeState;
     
 
     public Sprite Start_Icon; 
@@ -31,6 +28,15 @@ public class UI_Controller : MonoBehaviour
     public float ClickNodeDistance;
     public int MaxClickFrames;
     private int _currentClickFrames;
+    private Node_controller _confirmNode = null;
+
+    private enum ConfirmNodeType
+    {
+        NotConfirming,
+        SetStart,
+        SetEnd
+    }
+    private ConfirmNodeType _confirmType;
 
     void Start()
     {
@@ -81,35 +87,52 @@ public class UI_Controller : MonoBehaviour
 
     }
 
+    private void _checkNodeClick(Vector3 mousePos)
+    {
+        Node_controller clickedNode = null;
+        var minDist = float.MaxValue;
+        foreach(var node in MainController.Nodes)
+        {
+            if (node.Name == string.Empty) continue; 
+            var distance = (mousePos - node.transform.position).magnitude;
+            if(distance < ClickNodeDistance && distance < minDist) {
+                minDist = distance;
+                clickedNode = node;
+            }
+        }
+
+        if (clickedNode == null) return;
+
+        if(MainController.State == Main_Controller.App_State.Map) { //set start clickedNode
+            _handleStartNodeClick(clickedNode);
+        }
+        else{ //set end clickedNode and go to confirmation screen
+            if(MainController.End_Node == null)
+                Change_State(Main_Controller.App_State.Search);
+                search_controller.tappedEnd(clickedNode);  
+                Change_State(Main_Controller.App_State.Confirm);
+            }
+    }
+
     private void _handleClick()
     {
         //declare raycast for location of click
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        
-        foreach(var node in MainController.Nodes)
-        {
-            if (node.Name == string.Empty) continue; 
-            if((mousePos - node.transform.position).magnitude < ClickNodeDistance) {
-                var camera_x = node.transform.position.x;//get position of node for zoom in
-                var camera_y = node.transform.position.y;
-                         //node.gameObject.GetComponent<SpriteRenderer>().sprite = Start_Icon; ///to change to icon, doesnt work
-                         Camera.main.transform.position =  new Vector3(camera_x, camera_y, -10); //zoom on clicked node
-                         Camera.main.transform.rotation = Quaternion.identity; //make sure camera is correct
-                         ZoomLevel = 1; //set zoom level
-                         UpdateZoom(); 
-                         if(MainController.Start_Node == null){ //set start node
-                         search_controller._setStart(node);
-                         }
-                         else{ //set end node and go to confirmation screen
-                            if(MainController.End_Node == null)
-                            Change_State(Main_Controller.App_State.Search);
-                            search_controller.tappedEnd(node);  
-                            Change_State(Main_Controller.App_State.Confirm);
-                         }
+        _checkNodeClick(mousePos);
+    }
 
-            }
-        }
+    private void _handleStartNodeClick(Node_controller node)
+    {
+        Change_State(Main_Controller.App_State.ConfirmNode, false);
+        var camera_x = node.transform.position.x;//get position of node for zoom in
+        var camera_y = node.transform.position.y;
+        Camera.main.transform.position =  new Vector3(camera_x, camera_y, -10); //zoom on clicked clickedNode
+        Camera.main.transform.rotation = Quaternion.identity; //make sure camera is correct
+        ZoomLevel = 1; //set zoom level
+        UpdateZoom();
+        _confirmType = ConfirmNodeType.SetStart;
+        _confirmNode = node;
     }
 
 
@@ -177,19 +200,24 @@ public class UI_Controller : MonoBehaviour
             MainController.Cur_Path[i].Remove_Line();
         }
     }
-    public void Change_State(Main_Controller.App_State state){
-        MainController.State = state;       
-        Reset_view();
+
+    public void Change_State(Main_Controller.App_State state, bool resetView = true){
+        MainController.State = state;
+        if (resetView) {
+            Reset_view();
+        }
         SplashState.SetActive (state==Main_Controller.App_State.Splash);
         MapState.SetActive (state==Main_Controller.App_State.Map);
         ConfirmState.SetActive (state==Main_Controller.App_State.Confirm);
         SearchState.SetActive (state==Main_Controller.App_State.Search);
-        //SearchWStartState.SetActive (state==Main_Controller.App_State.SearchWStart);
+        ConfirmNodeState.SetActive (state==Main_Controller.App_State.ConfirmNode);
         RouteState.SetActive (state==Main_Controller.App_State.Route);
     }
+
     public void Set_Map_State(){
         Change_State(Main_Controller.App_State.Map);
     }
+
     public void Set_Search_State(){
         Change_State(Main_Controller.App_State.Search);
     }
@@ -208,5 +236,39 @@ public class UI_Controller : MonoBehaviour
         Camera.main.transform.rotation = Quaternion.identity;
         ResetZoom();
         Change_Floor(1);
+    }
+
+    public void ConfirmNode()
+    {
+        switch (_confirmType)
+        {
+            case ConfirmNodeType.NotConfirming:
+                return;
+            case ConfirmNodeType.SetStart:
+                _confirmNodeStart();
+                return;
+            case ConfirmNodeType.SetEnd:
+                return;
+        }
+    }
+
+    public void CancelNodeSelect()
+    {
+        switch (_confirmType)
+        {
+            case ConfirmNodeType.NotConfirming:
+                return;
+            case ConfirmNodeType.SetEnd:
+            case ConfirmNodeType.SetStart:
+                _confirmNode = null;
+                _confirmType = ConfirmNodeType.NotConfirming;
+                Change_State(Main_Controller.App_State.Map);
+                return;
+        }
+    }
+
+    private void _confirmNodeStart()
+    {
+        
     }
 }
