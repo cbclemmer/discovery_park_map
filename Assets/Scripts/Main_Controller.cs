@@ -22,11 +22,12 @@ public class Main_Controller : MonoBehaviour
         Splash,
         Map,
         Search,
-        SearchWStart,
+        ConfirmNode,
         Confirm,
         Route, 
         Cancel
     }
+
     public App_State State = App_State.Splash;
     
     void Start()

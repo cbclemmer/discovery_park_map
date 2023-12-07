@@ -1213,6 +1213,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6485557728682766615, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
   m_PrefabInstance: {fileID: 508364947}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &129074972 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8552621999267688535, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129074971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e889b0afe0f444db3394a2b7b0e4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &131127100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6805768334108995579, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
@@ -1687,6 +1698,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 528604229950657555, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
   m_PrefabInstance: {fileID: 169899279}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &175829838 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7346349156972656421, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &181435391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4224,6 +4246,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2800347717982910480, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: UIController
+      value: 
+      objectReference: {fileID: 519420034}
+    - target: {fileID: 2800347717982910480, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+      propertyPath: ConfirmNodeRoomText
+      value: 
+      objectReference: {fileID: 175829838}
     - target: {fileID: 3725322431267244638, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -4537,6 +4567,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+--- !u!1 &508364948 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1658587099797071934, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &508364950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2800347717982910480, guid: d1fb8d80af2934c9d9618054e0895214, type: 3}
+  m_PrefabInstance: {fileID: 508364947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508364948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87d63e58440d7740a596b09edfb54d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4648,7 +4694,7 @@ MonoBehaviour:
   Start_Node: {fileID: 0}
   End_Node: {fileID: 0}
   Nodes: []
-  TestConnections: 1
+  TestConnections: 0
   Cur_Path: []
   CurrentFloor: 0
   State: 0
@@ -4669,9 +4715,13 @@ MonoBehaviour:
   ConfirmState: {fileID: 131127100}
   SearchState: {fileID: 129074971}
   RouteState: {fileID: 420531327}
+  ConfirmNodeState: {fileID: 508364948}
+  Start_Icon: {fileID: 0}
   Floor_One_Sprite: {fileID: 2081480054}
   Floor_Two_Sprite: {fileID: 570118692}
   TimeText: {fileID: 881475044}
+  search_controller: {fileID: 129074972}
+  ConfirmNodeController: {fileID: 508364950}
   ZoomLevels:
   - 3
   - 5

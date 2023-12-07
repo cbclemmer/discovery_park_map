@@ -9,13 +9,17 @@ public class UI_Controller : MonoBehaviour
     public GameObject ConfirmState;
     public GameObject SearchState;
     public GameObject RouteState;
+    public GameObject ConfirmNodeState;
     
+
+    public Sprite Start_Icon; 
     public GameObject Floor_One_Sprite;
     public GameObject Floor_Two_Sprite;
 
     [SerializeField] public TextMeshProUGUI TimeText;
     public Main_Controller MainController { get => GetComponent<Main_Controller>(); }
-
+    public Search_Controller search_controller;
+    public Confirm_Node_Controller ConfirmNodeController;
     public List<float> ZoomLevels = new List<float>
     {
         6,7,8,
@@ -75,20 +79,39 @@ public class UI_Controller : MonoBehaviour
 
     }
 
+    private void _checkNodeClick(Vector3 mousePos)
+    {
+        Node_controller clickedNode = null;
+        var minDist = float.MaxValue;
+        foreach(var node in MainController.Nodes)
+        {
+            if (node.Name == string.Empty) continue; 
+            var distance = (mousePos - node.transform.position).magnitude;
+            if(distance < ClickNodeDistance && distance < minDist) {
+                minDist = distance;
+                clickedNode = node;
+            }
+        }
+
+        if (clickedNode == null) return;
+
+        if(MainController.State == Main_Controller.App_State.Map) { //set start clickedNode
+            ConfirmNodeController.HandleStartNodeClick(clickedNode);
+        }
+        else{ //set end clickedNode and go to confirmation screen
+            // TODO: Handle destination node click
+            return;
+        }
+    }
+
     private void _handleClick()
     {
         //declare raycast for location of click
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        
-        foreach(var node in MainController.Nodes)
-        {
-            if (node.Name == string.Empty) continue;
-            if((mousePos - node.transform.position).magnitude < ClickNodeDistance) {
-                Debug.Log(node.Name);
-            }
-        }
+        _checkNodeClick(mousePos);
     }
+
 
     public void ZoomIn()
     {
@@ -154,18 +177,24 @@ public class UI_Controller : MonoBehaviour
             MainController.Cur_Path[i].Remove_Line();
         }
     }
-    public void Change_State(Main_Controller.App_State state){
-        MainController.State = state;       
-        Reset_view();
+
+    public void Change_State(Main_Controller.App_State state, bool resetView = true){
+        MainController.State = state;
+        if (resetView) {
+            Reset_view();
+        }
         SplashState.SetActive (state==Main_Controller.App_State.Splash);
         MapState.SetActive (state==Main_Controller.App_State.Map);
         ConfirmState.SetActive (state==Main_Controller.App_State.Confirm);
         SearchState.SetActive (state==Main_Controller.App_State.Search);
+        ConfirmNodeState.SetActive (state==Main_Controller.App_State.ConfirmNode);
         RouteState.SetActive (state==Main_Controller.App_State.Route);
     }
+
     public void Set_Map_State(){
         Change_State(Main_Controller.App_State.Map);
     }
+
     public void Set_Search_State(){
         Change_State(Main_Controller.App_State.Search);
     }
