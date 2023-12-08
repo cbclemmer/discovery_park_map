@@ -167,13 +167,14 @@ public class Main_Controller : MonoBehaviour
     }
     
 
-    public int GetWalkTime() { //converts path distance into walktime, 1 unity unit = 1 meter
-        if (Cur_Path == null){ 
+    public int GetWalkTime(List<Node_controller> path = null) { //converts path distance into walktime, 1 unity unit = 1 meter
+        if (path == null) path = Cur_Path;
+        if (path == null){ 
             throw new Exception("UI::GetWalkTimeString: Current path is not set");
         }
         float sum = 0;
-        for(int i = 0; i < Cur_Path.Count -1; i++){
-            sum += (Cur_Path[i].transform.position - Cur_Path[i+1].transform.position).magnitude *7.62f;
+        for(int i = 0; i < path.Count -1; i++){
+            sum += (path[i].transform.position - path[i+1].transform.position).magnitude *7.62f;
         }
         float walkTime = sum/1.338f; //average walking speed is 1.388 meters per second
         return (int)(walkTime); //give time in minutes 

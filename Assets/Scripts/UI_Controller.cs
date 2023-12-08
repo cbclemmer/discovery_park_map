@@ -212,6 +212,10 @@ public class UI_Controller : MonoBehaviour
 
     public void Set_Search_State(){
         Change_State(Main_Controller.App_State.Search);
+        foreach (var button in search_controller.button_results)
+        {
+            button.SetActive(false);
+        }
     }
     
     public void Change_Floor(int floor)
