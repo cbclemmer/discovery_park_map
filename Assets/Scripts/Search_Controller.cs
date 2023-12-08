@@ -24,6 +24,7 @@ public class Search_Controller : MonoBehaviour
             var textLabel = button_results[i].GetComponentInChildren<TMP_Text>();
             textLabel.fontSize = 24;
             var idx = hasStart ? i - 1 : i;
+            button_results[i].SetActive(idx < class_results.Count);
             if(idx < class_results.Count){
                 textLabel.text = class_results[idx].name;
             }

@@ -66,5 +66,6 @@ public class Confirm_Node_Controller : MonoBehaviour
     {
         UIController.Set_Search_State();
         UIController.search_controller.SetStart(_confirmNode);
+        UIController.search_controller.button_results[0].SetActive(true);
     }
 }
