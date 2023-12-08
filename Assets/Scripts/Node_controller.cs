@@ -20,6 +20,7 @@ public class Node_controller : MonoBehaviour
         if (Type.Equals(NodeType.Pathing)) {
             GetComponent<SpriteRenderer>().sprite = PathSprite;
         }
+        Name = gameObject.name;
     }
     
     // Update is called once per frame
