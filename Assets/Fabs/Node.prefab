@@ -50,6 +50,7 @@ MonoBehaviour:
   Name: 
   Connections: []
   Type: 0
+  PathSprite: {fileID: 21300000, guid: 0069072a07aca674ea2c295769b61e3d, type: 3}
 --- !u!212 &8630174121081577160
 SpriteRenderer:
   m_ObjectHideFlags: 0

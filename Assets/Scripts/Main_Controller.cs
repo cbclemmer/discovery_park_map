@@ -46,16 +46,37 @@ public class Main_Controller : MonoBehaviour
             currentId++;
         }
 
+        var pathNodes = Nodes.Where(n => n.Type.Equals(Node_controller.NodeType.Pathing));
         // Ensure nodes are connected both ways
         foreach (var node in Nodes)
         {
             node.Connections = node.Connections.Where(c => c != null).ToList();
-            foreach (var connection in node.Connections)
+            if (node.Type.Equals(Node_controller.NodeType.Pathing))
             {
-                if (connection != null && connection.Connections != null 
-                    && !connection.Connections.Any(c => c != null && c.Id == node.Id)) 
+                foreach (var connection in node.Connections)
                 {
-                    connection.Connections.Add(node);
+                    if (connection != null && connection.Connections != null 
+                        && !connection.Connections.Any(c => c != null && c.Id == node.Id)) 
+                    {
+                        connection.Connections.Add(node);
+                    }
+                }
+            } else {
+                node.Connections = new List<Node_controller>();
+                Node_controller closestPathNode = null;
+                var minDist = float.MaxValue;
+                foreach(var pathNode in pathNodes)
+                {
+                    var dist = (pathNode.transform.position - node.transform.position).magnitude;
+                    if (dist < minDist) 
+                    {
+                        minDist = dist;
+                        closestPathNode = pathNode;
+                    }
+                }
+                if (closestPathNode != null)
+                {
+                    closestPathNode.Connections.Add(node);
                 }
             }
         }
