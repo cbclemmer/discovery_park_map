@@ -89,7 +89,7 @@ public class Main_Controller : MonoBehaviour
         var results = new List<Node_controller>();
         for (int i = 0; i < Nodes.Count; i++){
             if (Start_Node != null && Nodes[i].Id == Start_Node.Id) continue;
-            if(Nodes[i].transform.parent.name == "Room_Nodes" && regex.Match(Nodes[i].Name.ToLower()).Success){
+            if(Nodes[i].name != string.Empty && regex.Match(Nodes[i].Name.ToLower()).Success){
                 results.Add(Nodes[i]);
             }
         }

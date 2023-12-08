@@ -19,11 +19,11 @@ public class Search_Controller : MonoBehaviour
             : main_controller.Search_Nodes(search_bar.text);
 
         var hasStart = main_controller.Start_Node != null;
-        var startIndex = hasStart ? 1 : 0;
+        var startIndex = hasStart ? 2 : 0;
         for(int i = startIndex;i < 5; i++){
             var textLabel = button_results[i].GetComponentInChildren<TMP_Text>();
-            textLabel.fontSize = 24;
-            var idx = hasStart ? i - 1 : i;
+            var idx = hasStart ? i - 2 : i;
+            button_results[i].SetActive(idx < class_results.Count);
             if(idx < class_results.Count){
                 textLabel.text = class_results[idx].name;
             }
@@ -35,7 +35,11 @@ public class Search_Controller : MonoBehaviour
 
     public void ClickSearchOption(int index)
     {
-        if (main_controller.Start_Node != null) index--;
+        if (main_controller.Start_Node != null) index -= 2;
+        if (index == -1) {
+            _searchForTapDestination();
+            return;
+        }
         if (search_bar.text == null || search_bar.text == string.Empty) return;
         var searchNodes = main_controller.Search_Nodes(search_bar.text);
         if (index > searchNodes.Count - 1) return;
@@ -43,13 +47,17 @@ public class Search_Controller : MonoBehaviour
         if (main_controller.Start_Node == null)
         {
             SetStart(clickedNode);
-            
         } else {
             confirm_Controller.Set_Confirm_State(clickedNode);
             button_results[0].GetComponentInChildren<TMP_Text>().text = string.Empty;
         }
         search_bar.text = string.Empty;
         InputUpdate();
+    }
+
+    private void _searchForTapDestination()
+    {
+        main_controller.UIController.Set_Map_State();
     }
 
     public void tappedEnd(Node_controller endNode){ //function for if the end node is selected via tap.
@@ -75,7 +83,10 @@ public class Search_Controller : MonoBehaviour
     {
         main_controller.Start_Node = startNode;
         var textBox = button_results[0].GetComponentInChildren<TMP_Text>();
-        textBox.fontSize = 16;
         textBox.text = "Start: " + startNode.Name;
+
+        textBox = button_results[1].GetComponentInChildren<TMP_Text>();
+        textBox.text = "Tap Destination";
+        button_results[1].SetActive(true);
     }
 }

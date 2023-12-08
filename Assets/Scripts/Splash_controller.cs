@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,5 +8,6 @@ public class Splash_controller : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         UIController.Change_State(Main_Controller.App_State.Map);
+        UIController.LastButtonClickTime = DateTime.Now;
     }
 }
