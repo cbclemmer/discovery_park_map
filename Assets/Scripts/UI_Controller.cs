@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class UI_Controller : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class UI_Controller : MonoBehaviour
         9,10,11
     };
     public int ZoomLevel = 2;
+    public DateTime LastButtonClickTime;
     public float ClickNodeDistance;
     public int MaxClickFrames;
     private int _currentClickFrames;
@@ -81,6 +83,9 @@ public class UI_Controller : MonoBehaviour
 
     private void _checkNodeClick(Vector3 mousePos)
     {
+        if ((DateTime.Now - LastButtonClickTime).TotalMilliseconds < 1000) {
+            return;
+        }
         Node_controller clickedNode = null;
         var minDist = float.MaxValue;
         foreach(var node in MainController.Nodes)
@@ -119,6 +124,7 @@ public class UI_Controller : MonoBehaviour
             return;
         ZoomLevel--;
         UpdateZoom();
+        LastButtonClickTime = DateTime.Now;
     }
     public void ZoomOut()
     {
@@ -126,6 +132,7 @@ public class UI_Controller : MonoBehaviour
             return;
         ZoomLevel++;
         UpdateZoom();
+        LastButtonClickTime = DateTime.Now;
     }
     public void UpdateZoom()
     {
@@ -136,6 +143,7 @@ public class UI_Controller : MonoBehaviour
     {
         ZoomLevel = ZoomLevels.Count - 1;
         UpdateZoom();
+        LastButtonClickTime = DateTime.Now;
     }
 
     public void Create_Path()
