@@ -6435,7 +6435,9 @@ MonoBehaviour:
   Start_Node: {fileID: 0}
   End_Node: {fileID: 0}
   Nodes: []
+  NodePrefab: {fileID: 4329977615832120818, guid: e49329ee85d8b4e60b9c6bea7a2e6330, type: 3}
   TestConnections: 0
+  PathInterval: 0.3
   Cur_Path: []
   CurrentFloor: 0
   State: 0
