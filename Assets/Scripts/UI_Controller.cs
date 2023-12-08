@@ -101,11 +101,11 @@ public class UI_Controller : MonoBehaviour
         if (clickedNode == null) return;
 
         if(MainController.State == Main_Controller.App_State.Map) { //set start clickedNode
-            ConfirmNodeController.HandleStartNodeClick(clickedNode);
-        }
-        else{ //set end clickedNode and go to confirmation screen
-            // TODO: Handle destination node click
-            return;
+            if (MainController.Start_Node == null) {
+                ConfirmNodeController.HandleStartNodeClick(clickedNode);
+            } else {
+                ConfirmNodeController.HandleDestNodeClick(clickedNode);
+            }
         }
     }
 
