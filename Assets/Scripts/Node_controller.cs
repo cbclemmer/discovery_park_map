@@ -13,10 +13,14 @@ public class Node_controller : MonoBehaviour
     public string Name;
     public List<Node_controller> Connections;
     public NodeType Type;
+    public Sprite PathSprite;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (Type.Equals(NodeType.Pathing)) {
+            GetComponent<SpriteRenderer>().sprite = PathSprite;
+        }
+        Name = gameObject.name;
     }
     
     // Update is called once per frame

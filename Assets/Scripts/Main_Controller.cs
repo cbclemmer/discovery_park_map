@@ -12,7 +12,9 @@ public class Main_Controller : MonoBehaviour
     public Node_controller End_Node;
 
     public List<Node_controller> Nodes;
+    public GameObject NodePrefab;
     public bool TestConnections;
+    public float PathInterval;
 
     //list to store the current path in memory
     public List<Node_controller> Cur_Path; 
@@ -46,17 +48,85 @@ public class Main_Controller : MonoBehaviour
             currentId++;
         }
 
+        var pathNodes = Nodes.Where(n => n.Type.Equals(Node_controller.NodeType.Pathing)).ToList();
         // Ensure nodes are connected both ways
-        foreach (var node in Nodes)
+        foreach (var node in pathNodes)
         {
             node.Connections = node.Connections.Where(c => c != null).ToList();
-            foreach (var connection in node.Connections)
+            if (node.Type.Equals(Node_controller.NodeType.Pathing))
             {
-                if (connection != null && connection.Connections != null 
-                    && !connection.Connections.Any(c => c != null && c.Id == node.Id)) 
+                foreach (var connection in node.Connections)
                 {
-                    connection.Connections.Add(node);
+                    if (connection != null && connection.Connections != null 
+                        && !connection.Connections.Any(c => c != null && c.Id == node.Id)) 
+                    {
+                        connection.Connections.Add(node);
+                    }
                 }
+            }
+        }
+
+        var visited = new List<KeyValuePair<int, int>>();
+        foreach (var node in pathNodes)
+        {
+            var connectionArr = new Node_controller[node.Connections.Count];
+            node.Connections.CopyTo(connectionArr);
+            foreach(var connection in connectionArr)
+            {
+                if (connection.Type != Node_controller.NodeType.Pathing) continue;
+                if (visited.Any(v => (v.Key == node.Id && v.Value == connection.Id) || (v.Key == connection.Id && v.Value == node.Id))) continue;
+                visited.Add(new KeyValuePair<int, int>(node.Id, connection.Id));
+                var lastNode = node;
+                var vec = connection.transform.position - node.transform.position;
+                var connectionDist = vec.magnitude;
+                var pos = node.transform.position + (vec * (PathInterval / vec.magnitude));
+                var dist = (node.transform.position - pos).magnitude;
+                while (dist < connectionDist)
+                {
+                    var newNode = Instantiate(NodePrefab).GetComponent<Node_controller>();
+                    newNode.Type = Node_controller.NodeType.Pathing;
+                    newNode.transform.position = pos;
+                    newNode.Id = currentId;
+                    currentId++;
+                    newNode.Connections.Add(lastNode);
+                    lastNode.Connections.Add(newNode);
+                    newNode.transform.SetParent(node.transform);
+                    Nodes.Add(newNode);
+                    lastNode = newNode;
+                    vec = connection.transform.position - lastNode.transform.position;
+                    pos = lastNode.transform.position + (vec * (PathInterval / vec.magnitude));
+                    dist = (node.transform.position - pos).magnitude;
+                }
+
+                if (lastNode.Id != node.Id)
+                {
+                    connection.Connections.Add(lastNode);
+                    lastNode.Connections.Add(connection);
+                    node.Connections.Remove(connection);
+                    connection.Connections.Remove(node);
+                }
+            }
+        }
+
+        pathNodes = Nodes.Where(n => n.Type.Equals(Node_controller.NodeType.Pathing)).ToList();
+        foreach (var node in Nodes.Where(n => !n.Type.Equals(Node_controller.NodeType.Pathing)))
+        {
+            node.Connections = new List<Node_controller>();
+            Node_controller closestPathNode = null;
+            var minDist = float.MaxValue;
+            foreach(var pathNode in pathNodes)
+            {
+                var dist = (pathNode.transform.position - node.transform.position).magnitude;
+                if (dist < minDist) 
+                {
+                    minDist = dist;
+                    closestPathNode = pathNode;
+                }
+            }
+            if (closestPathNode != null)
+            {
+                closestPathNode.Connections.Add(node);
+                node.Connections.Add(closestPathNode);
             }
         }
 
@@ -97,13 +167,14 @@ public class Main_Controller : MonoBehaviour
     }
     
 
-    public int GetWalkTime() { //converts path distance into walktime, 1 unity unit = 1 meter
-        if (Cur_Path == null){ 
+    public int GetWalkTime(List<Node_controller> path = null) { //converts path distance into walktime, 1 unity unit = 1 meter
+        if (path == null) path = Cur_Path;
+        if (path == null){ 
             throw new Exception("UI::GetWalkTimeString: Current path is not set");
         }
         float sum = 0;
-        for(int i = 0; i < Cur_Path.Count -1; i++){
-            sum += (Cur_Path[i].transform.position - Cur_Path[i+1].transform.position).magnitude *7.62f;
+        for(int i = 0; i < path.Count -1; i++){
+            sum += (path[i].transform.position - path[i+1].transform.position).magnitude *7.62f;
         }
         float walkTime = sum/1.338f; //average walking speed is 1.388 meters per second
         return (int)(walkTime); //give time in minutes 

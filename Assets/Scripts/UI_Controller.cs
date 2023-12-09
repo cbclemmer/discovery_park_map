@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Linq;
 
 public class UI_Controller : MonoBehaviour
 {
@@ -88,13 +89,19 @@ public class UI_Controller : MonoBehaviour
         }
         Node_controller clickedNode = null;
         var minDist = float.MaxValue;
-        foreach(var node in MainController.Nodes)
+        var normalNodes = MainController.Nodes.Where(n => !n.Type.Equals(Node_controller.NodeType.Pathing)).ToList();
+        foreach(var node in normalNodes)
         {
             if (node.Name == string.Empty) continue; 
-            var distance = (mousePos - node.transform.position).magnitude;
-            if(distance < ClickNodeDistance && distance < minDist) {
+            var pos = node.transform.position;
+            pos.z = 0;
+            var distance = (mousePos - pos).magnitude;
+            if(distance < minDist) {
                 minDist = distance;
-                clickedNode = node;
+                if (distance < ClickNodeDistance) 
+                {
+                    clickedNode = node;
+                }
             }
         }
 
@@ -205,6 +212,10 @@ public class UI_Controller : MonoBehaviour
 
     public void Set_Search_State(){
         Change_State(Main_Controller.App_State.Search);
+        foreach (var button in search_controller.button_results)
+        {
+            button.SetActive(false);
+        }
     }
     
     public void Change_Floor(int floor)
