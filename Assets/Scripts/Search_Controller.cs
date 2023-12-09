@@ -27,7 +27,7 @@ public class Search_Controller : MonoBehaviour
 
         var hasStart = main_controller.Start_Node != null;
         var startIndex = hasStart ? 1 : 0;
-        for(int i = startIndex;i < 5; i++){
+        for(int i = startIndex;i < 6; i++){
             var textLabel = button_results[i].GetComponentInChildren<TMP_Text>();
             var idx = hasStart ? i - 1 : i;
             button_results[i].SetActive(idx < class_results.Count);
@@ -56,6 +56,9 @@ public class Search_Controller : MonoBehaviour
                     break;
                 case 4:
                     _setNearestGeneral("Bathroom");
+                    break;
+                case 5:
+                    _setNearestGeneral("Elevator");
                     break;
             }
             return;
@@ -94,6 +97,10 @@ public class Search_Controller : MonoBehaviour
                 closestGeneral = node;
                 minDist = walkTime;
             }
+        }
+        if (closestGeneral == null)
+        {
+            throw new System.Exception($"No general node with name {name} found");
         }
         tappedEnd(closestGeneral);
     }
@@ -138,5 +145,9 @@ public class Search_Controller : MonoBehaviour
         textBox = button_results[4].GetComponentInChildren<TMP_Text>();
         textBox.text = "Nearest Restroom";
         button_results[4].SetActive(true);
+
+        textBox = button_results[5].GetComponentInChildren<TMP_Text>();
+        textBox.text = "Nearest Elevator";
+        button_results[5].SetActive(true);
     }
 }
