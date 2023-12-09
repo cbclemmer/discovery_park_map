@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class Search_Controller : MonoBehaviour
 {
@@ -18,11 +19,17 @@ public class Search_Controller : MonoBehaviour
             ? new List<Node_controller>()
             : main_controller.Search_Nodes(search_bar.text);
 
+        if (class_results.Count == 0)
+        {
+            SetStart(main_controller.Start_Node);
+            return;
+        }
+
         var hasStart = main_controller.Start_Node != null;
-        var startIndex = hasStart ? 2 : 0;
+        var startIndex = hasStart ? 1 : 0;
         for(int i = startIndex;i < 5; i++){
             var textLabel = button_results[i].GetComponentInChildren<TMP_Text>();
-            var idx = hasStart ? i - 2 : i;
+            var idx = hasStart ? i - 1 : i;
             button_results[i].SetActive(idx < class_results.Count);
             if(idx < class_results.Count){
                 textLabel.text = class_results[idx].name;
@@ -35,11 +42,25 @@ public class Search_Controller : MonoBehaviour
 
     public void ClickSearchOption(int index)
     {
-        if (main_controller.Start_Node != null) index -= 2;
-        if (index == -1) {
-            _searchForTapDestination();
+        if (search_bar.text.Equals(string.Empty)) {
+            switch (index)
+            {
+                case 1:
+                    _searchForTapDestination();
+                    break;
+                case 2:
+                    _setNearestGeneral("Exit");
+                    break;
+                case 3:
+                    _setNearestGeneral("Fountain");
+                    break;
+                case 4:
+                    _setNearestGeneral("Bathroom");
+                    break;
+            }
             return;
         }
+        if (main_controller.Start_Node != null) index -= 2;
         if (search_bar.text == null || search_bar.text == string.Empty) return;
         var searchNodes = main_controller.Search_Nodes(search_bar.text);
         if (index > searchNodes.Count - 1) return;
@@ -58,6 +79,23 @@ public class Search_Controller : MonoBehaviour
     private void _searchForTapDestination()
     {
         main_controller.UIController.Set_Map_State();
+    }
+
+    private void _setNearestGeneral(string name)
+    {
+        Node_controller closestGeneral = null;
+        var minDist = int.MaxValue;
+        foreach(var node in main_controller.Nodes.Where(n => n.Type.Equals(Node_controller.NodeType.General) && n.Name.Equals(name)))
+        {
+            var path = main_controller.Find_Path(main_controller.Start_Node, node);
+            var walkTime = main_controller.GetWalkTime(path);
+            if (walkTime < minDist)
+            {
+                closestGeneral = node;
+                minDist = walkTime;
+            }
+        }
+        tappedEnd(closestGeneral);
     }
 
     public void tappedEnd(Node_controller endNode){ //function for if the end node is selected via tap.
@@ -88,5 +126,17 @@ public class Search_Controller : MonoBehaviour
         textBox = button_results[1].GetComponentInChildren<TMP_Text>();
         textBox.text = "Tap Destination";
         button_results[1].SetActive(true);
+
+        textBox = button_results[2].GetComponentInChildren<TMP_Text>();
+        textBox.text = "Nearest Exit";
+        button_results[2].SetActive(true);
+
+        textBox = button_results[3].GetComponentInChildren<TMP_Text>();
+        textBox.text = "Nearest Fountain";
+        button_results[3].SetActive(true);
+
+        textBox = button_results[4].GetComponentInChildren<TMP_Text>();
+        textBox.text = "Nearest Restroom";
+        button_results[4].SetActive(true);
     }
 }
