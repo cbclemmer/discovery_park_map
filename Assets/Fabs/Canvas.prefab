@@ -409,6 +409,7 @@ MonoBehaviour:
   ConfirmText: {fileID: 7346349156972656421}
   RoomText: {fileID: 8247995828190841306}
   UIController: {fileID: 0}
+  SnapCameraYOffset: 1.5
 --- !u!1 &1969539842634255093
 GameObject:
   m_ObjectHideFlags: 0
@@ -5777,6 +5778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a8afbd6f775ba4b9e636f86af32404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConfirmYOffset: 10
   UIController: {fileID: 0}
   Start_Text: {fileID: 4069113933927862956}
   End_Text: {fileID: 1665137794992058858}
