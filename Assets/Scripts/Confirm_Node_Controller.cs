@@ -8,6 +8,8 @@ public class Confirm_Node_Controller : MonoBehaviour
     public TMP_Text RoomText;
     public UI_Controller UIController;
 
+    public float SnapCameraYOffset;
+
     private Node_controller _confirmNode = null;
 
     private enum ConfirmNodeType
@@ -95,7 +97,7 @@ public class Confirm_Node_Controller : MonoBehaviour
     {
         UIController.Change_State(Main_Controller.App_State.ConfirmNode, false);
         var camera_x = node.transform.position.x;//get position of node for zoom in
-        var camera_y = node.transform.position.y;
+        var camera_y = node.transform.position.y - SnapCameraYOffset;
         Camera.main.transform.position =  new Vector3(camera_x, camera_y, -10); //zoom on clicked clickedNode
         Camera.main.transform.rotation = Quaternion.identity; //make sure camera is correct
         UIController.ZoomLevel = 1; //set zoom level
